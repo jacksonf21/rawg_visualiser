@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import './App.css';
+import Header from './components/Header.component';
 
 function App() {
+
+  const [state, setState] = useState([]);
+  const [select, setSelect] = useState(0);
+
+  useEffect(() => {
+    Axios.get('http://localhost:8000')
+      .then(res => {
+        setState(res.data)
+      });
+  },[]);
+
+  const nextGame = () => {
+    setSelect(select => select + 1);
+  };
+
+  const topTwenty = state.map(game => {
+    return (
+      <header>
+        <div>{game.name}</div>
+        <div>{game.ratingsCount}</div>
+        <div>{game.ratings.exceptional}</div>
+      </header>
+    );
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {topTwenty[select]}
+      <Header onClick={nextGame}/>
     </div>
   );
 }
