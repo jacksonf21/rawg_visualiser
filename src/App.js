@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import Header from './components/Content.component';
+import Content from './components/Content.component';
 import './App.css';
 
 function App() {
   const [state, setState] = useState([]);
   const [select, setSelect] = useState(0);
 
-  useEffect(() => {
-    Axios.get('http://localhost:8000')
+  const gamesAPIdata = (url) => {
+    Axios.get(url)
       .then(res => {
-        setState(res.data)
-      });
+        setState(res.data);
+      })
+  };
+
+  useEffect(() => {
+    gamesAPIdata('http://localhost:8000')
   },[]);
 
   const nextGame = () => {
@@ -26,9 +30,10 @@ function App() {
 
   return (
     <div className="App">
-      <Header
+      <Content
         select={select}
         games={state}
+        gamesAPIdata={gamesAPIdata}
         nextGame={nextGame}
         previousGame={previousGame}
       />

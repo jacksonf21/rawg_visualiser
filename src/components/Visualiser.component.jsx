@@ -1,20 +1,33 @@
 import React from 'react';
 
 export default function Visualiser({ ratings }) {
-  
-  const exceptional = ratings.find(rating => rating.title === 'exceptional')
+  let allRatings = '';
+
+  if (ratings) {
+    const sortedRatings = ratings.sort((b, a) => (b.id > a.id) ? -1 : 1);
+
+    allRatings = sortedRatings.map(rating => {
+      return (
+        <div>
+          <div>
+            {rating.title}
+          </div>
+          <div>
+            {rating.percent}
+          </div>
+          <div>
+            {rating.count}
+          </div>
+        </div>
+      )
+    })
+  }
 
   return (
     <div>
-      <div>
-        {exceptional.title}
-      </div>
-      <div>
-        {exceptional.percent}
-      </div>
-      <div>
-        {exceptional.count}
-      </div>
+      {ratings && (
+        allRatings
+      )}
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import Visualiser from './Visualiser.component';
+import ComparitiveVisualiser from './ComparitiveVisualiser.component';
 
-export default function Header({ nextGame, previousGame, games, select }) {
+export default function Header({ nextGame, previousGame, games, select, gamesAPIdata }) {
   const topTwenty = games.map(game => {
     return (
       <main>
@@ -11,22 +12,36 @@ export default function Header({ nextGame, previousGame, games, select }) {
           <div>{game.ratingsCount}</div>
         </header>
         <article>
-          <Visualiser 
+          <Visualiser
             ratings={game.ratings}
           />
-        </article>       
+        </article>
       </main>
     );
   });
   
   return (
     <div>
-      {topTwenty[select]}
-      <div onClick={() => nextGame()}>
-        Forward
+      <div>
+        {topTwenty[select]}
+        <div onClick={() => nextGame()}>
+          Forward
+        </div>
+        <div onClick={() => previousGame()}>
+          Backward
+        </div>
       </div>
-      <div onClick={() => previousGame()}>
-        Backward
+      <ComparitiveVisualiser 
+        topTwenty={topTwenty}
+      />
+      <div onClick={() => gamesAPIdata('http://localhost:8000')}>
+        THIS YEAR
+      </div>
+      <div onClick={() => gamesAPIdata('http://localhost:8000/this-month')}>
+        THIS MONTH
+      </div>
+      <div onClick={() => gamesAPIdata('http://localhost:8000/upcoming-month')}>
+        NEXT MONTH
       </div>
     </div>
   );
