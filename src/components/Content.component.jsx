@@ -32,18 +32,17 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
   return (
     <div className='game-body'>
       <header className='game-header'>
+
         <main className='game-header__container'>
           <div className='game-header__container--previous'onClick={() => previousGame()}>
             B
           </div>
-
           {topTwenty[select]}
-
           <div className='game-header__container--next'onClick={() => nextGame()}>
             F
-          </div>
-          
+          </div>  
         </main>
+      
         <nav className='game-header__nav'>
           <div onClick={() => gamesAPIdata('http://localhost:8000')}>
             THIS YEAR
@@ -57,8 +56,12 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
         </nav>
 
       </header>
-      {rating[select]}
-      {visualPiece[select]}
+
+      <article className='game-main'>
+        {rating[select]}
+        {visualPiece[select]}
+      </article>      
+      
       <ComparitiveVisualiser 
         topTwenty={topTwenty}
       />

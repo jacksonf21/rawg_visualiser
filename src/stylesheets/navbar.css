@@ -1,7 +1,17 @@
 .game-navbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1vh;
   position: fixed;
   top: 0;
+  width: 100%;
   z-index: 3;
+}
+.game-navbar .game-navbar__logo {
+  margin-left: 3vw;
+}
+.game-navbar .game-navbar__icons {
+  margin-right: 3vw;
 }
 
 /*# sourceMappingURL=navbar.css.map */

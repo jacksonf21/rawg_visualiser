@@ -1,5 +1,5 @@
 .game-body {
-  // margin-top: 5vh;
+  margin-top: 3vh;
 }
 
 .game-header {
@@ -29,5 +29,9 @@
       margin-left: 5vw;
     }
 
+  }
+  .game-header__nav {
+    display:  flex;
+    justify-content: space-around;
   }
 }
