@@ -6,14 +6,19 @@ import '../stylesheets/content.css';
 export default function Header({ nextGame, previousGame, games, select, gamesAPIdata }) {
   const topTwenty = games.map(game => {
     return (
-      <main>
-        <div className='game-header__title'>{game.name}</div>
-        <div className='game-header__rating'>{game.rating}</div>
-        <div className='game-header__count'>{game.ratingsCount}</div>
-      </main>
+      <div className='game-header__container__title'>{game.name}</div>
     );
   });
   
+  const rating = games.map(game => {
+    return (
+      <div>
+        <div className='game-rating'>{game.rating}</div>
+        <div className='game-count'>{game.ratingsCount}</div>
+      </div>
+    );
+  });
+
   const visualPiece = games.map(game => {
     return (
       <article>
@@ -22,21 +27,23 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
       />
     </article>
 )
-  })
+  });
 
   return (
-    <div>
+    <div className='game-body'>
       <header className='game-header'>
-        {topTwenty[select]}
-        
-        <div onClick={() => nextGame()}>
-          Forward
-        </div>
-        
-        <div onClick={() => previousGame()}>
-          Backward
-        </div>
-        
+        <main className='game-header__container'>
+          <div className='game-header__container--previous'onClick={() => previousGame()}>
+            B
+          </div>
+
+          {topTwenty[select]}
+
+          <div className='game-header__container--next'onClick={() => nextGame()}>
+            F
+          </div>
+          
+        </main>
         <nav className='game-header__nav'>
           <div onClick={() => gamesAPIdata('http://localhost:8000')}>
             THIS YEAR
@@ -50,7 +57,7 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
         </nav>
 
       </header>
-
+      {rating[select]}
       {visualPiece[select]}
       <ComparitiveVisualiser 
         topTwenty={topTwenty}

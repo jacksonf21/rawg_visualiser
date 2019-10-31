@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Content from './components/Content.component';
-// import './App.css';
+import './stylesheets/app.css';
+import Navbar from './components/navbar.component';
 
 function App() {
   const [state, setState] = useState([]);
@@ -11,6 +12,7 @@ function App() {
     Axios.get(url)
       .then(res => {
         setState(res.data);
+        setSelect(0);
       })
   };
 
@@ -30,6 +32,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <Content
         select={select}
         games={state}

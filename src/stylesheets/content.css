@@ -1,5 +1,25 @@
-.game-header main .game-header__title {
-  font-size: 5vh;
+.game-header .game-header__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 10vh;
+}
+.game-header .game-header__container .game-header__container__title {
+  font-size: 4vh;
+  font-weight: 100;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+.game-header .game-header__container .game-header__container--next {
+  position: fixed;
+  right: 0;
+  margin-right: 5vw;
+}
+.game-header .game-header__container .game-header__container--previous {
+  position: fixed;
+  left: 0;
+  margin-left: 5vw;
 }
 
 /*# sourceMappingURL=content.css.map */
