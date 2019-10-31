@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Content from './components/Content.component';
-import './App.css';
+// import './App.css';
 
 function App() {
   const [state, setState] = useState([]);
