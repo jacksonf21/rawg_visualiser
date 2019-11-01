@@ -7,6 +7,7 @@ const d3test = (data) => {
       radius = Math.min(width, height) / 2,
       g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
   
+  //EXCEPTIONAL TO MEH
   var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
 
   // Generate the pie
@@ -22,7 +23,9 @@ const d3test = (data) => {
               .data(pie(data))
               .enter()
               .append("g")
-              .attr("class", "arc")
+              .attr("class", function(d, i) {
+                  return `arc${i}`
+              })
 
   //Draw arc paths
   arcs.append("path")

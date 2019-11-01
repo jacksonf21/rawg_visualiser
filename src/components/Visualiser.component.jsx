@@ -32,6 +32,11 @@ export default function Visualiser({ ratings }) {
   
   useEffect(() => {
     if (d3.select(".piechart")['_groups'][0] !== null) {
+      const svg = document.getElementsByClassName('piechart')[0];
+      const piechart = svg.getElementsByTagName('g');
+      
+      //CHOSE TO DELETE ANY EXISTING PIECHART ON EACH NEW RENDER
+      if (piechart.length) piechart[0].remove();
       d3test(data);
     }
   })
