@@ -1,12 +1,12 @@
 const d3 = require('d3');
 
-const d3test = (data) => {
+const d3test = (data, text) => {
   var svg = d3.select(".piechart-container__piechart"),
       width = svg.attr("width"),
       height = svg.attr("height"),
       radius = Math.min(width, height) / 2,
       g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 1.5 + ")");
-  
+
   //EXCEPTIONAL TO MEH
   var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#cc0000','#e41a1c']);
 
@@ -26,6 +26,11 @@ const d3test = (data) => {
               .attr("class", function(d, i) {
                   return `arc${i}`
               })
+
+              g.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('class', 'piechart-container__overlay')
+                .text(`${text}%`)
 
   //Draw arc paths
   arcs.append("path")

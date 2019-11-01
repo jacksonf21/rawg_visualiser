@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import * as d3 from 'd3';
 import '../stylesheets/visualiser.css';
-const { d3test } = require('../d3test');
 
+const { d3test } = require('../d3test');
+const classNames = require('classnames');
 
 export default function Visualiser({ ratings }) {
   const [ratingCategory, setRatingCategory] = useState(0);
@@ -12,8 +13,14 @@ export default function Visualiser({ ratings }) {
 
   const selectRatingCategory = (num) => {
     setRatingCategory(num);
-    console.log('fire');
   };
+
+  const pieClass = classNames('piechart-container__piechart', {
+    'piechart-container__piechart--exceptional-selected' : ratingCategory === 0,
+    'piechart-container__piechart--recommended-selected' : ratingCategory === 1,
+    'piechart-container__piechart--skip-selected' : ratingCategory === 2,
+    'piechart-container__piechart--meh-selected' : ratingCategory === 3
+  });
 
   if (ratings) {
     const sortedRatings = ratings.sort((b, a) => (b.id > a.id) ? -1 : 1);
@@ -49,15 +56,15 @@ export default function Visualiser({ ratings }) {
 
       //CHOSE TO DELETE ANY EXISTING PIECHART ON EACH NEW RENDER
       if (piechart.length) piechart[0].remove();
-      d3test(data);
+      d3test(data, ratingPercent[ratingCategory]);
     }
   })
 
   return (
     <div>
       <div className='piechart-container'>
-        <div className='piechart-container__overlay'>{ratingPercent[ratingCategory]}</div>
-        <svg className='piechart-container__piechart' width='300' height='200'></svg>
+        {/* <div className='piechart-container__overlay'>{`${ratingPercent[ratingCategory]}%`}</div> */}
+        <svg className={pieClass} width='300' height='200'></svg>
       </div>
       
       {ratings && (

@@ -5,10 +5,10 @@
   position: relative;
 }
 .piechart-container .piechart-container__overlay {
-  position: absolute;
-  align-self: center;
+  margin-top: 3vh;
   font-size: 4vh;
   font-weight: 100;
+  transform: translate(1.5vh, 1.5vh);
 }
 .piechart-container .piechart-container__piechart {
   min-height: 40vh;
