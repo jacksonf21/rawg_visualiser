@@ -21,15 +21,15 @@
     }
 
     .game-header__container--next {
-      position: fixed;
+      position: absolute;
       right: 0;
-      margin-right: 5vw;
+      margin-right: 2vw;
     }
 
     .game-header__container--previous {
-      position: fixed;
+      position: absolute;
       left: 0;
-      margin-left: 5vw;
+      margin-left: 2vw;
     }
 
   }
@@ -42,6 +42,22 @@
 }
 
 .game-main {
-  margin: 3vw;
   border: 1px solid black;
+  margin: 3vw;
+  .game-main__header {
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+    margin: 3vh 3vw 3vh 3vw;
+    padding-bottom: 1.3vh;
+
+    .game-main__header__rating {
+      font-size: 5vh;
+      font-weight: 100;
+    }
+    .game-main__header__count {
+      font-size: 5vh;
+      font-weight: 100;
+    }
+  }
 }

@@ -12,9 +12,9 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
   
   const rating = games.map(game => {
     return (
-      <div>
-        <div className='game-rating'>{game.rating}</div>
-        <div className='game-count'>{game.ratingsCount}</div>
+      <div className='game-main__header'>
+        <div className='game-main__header__rating'>{game.rating}</div>
+        <div className='game-main__header__count'>{game.ratingsCount}</div>
       </div>
     );
   });
@@ -23,6 +23,7 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
     return (
       <article>
       <Visualiser
+        key={game.name}
         ratings={game.ratings}
       />
     </article>
