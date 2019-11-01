@@ -24,12 +24,18 @@
       position: absolute;
       right: 0;
       margin-right: 2vw;
+      .MuiSvgIcon-root {
+        cursor: pointer;
+      }
     }
 
     .game-header__container--previous {
       position: absolute;
       left: 0;
       margin-left: 2vw;
+      .MuiSvgIcon-root {
+        cursor: pointer;
+      }
     }
 
   }
@@ -38,6 +44,34 @@
     display:  flex;
     justify-content: space-around;
     margin-top: 2.5vh;
+    div {
+      padding: 1.2vw;
+      cursor: pointer;
+    }
+  }
+
+  .game-header__nav--year {
+    .year {
+      background-color: gray;
+      border-radius: 5px;
+      padding: 1.2vw;
+    }
+  }
+
+  .game-header__nav--this-month {
+    .this-month {
+      background-color: gray;
+      border-radius: 5px;
+      padding: 1.2vw;
+    }
+  }
+
+  .game-header__nav--next-month {
+    .next-month {
+      background-color: gray;
+      border-radius: 5px;
+      padding: 1.2vw;
+    }
   }
 }
 
@@ -58,6 +92,9 @@
     .game-main__header__count {
       font-size: 5vh;
       font-weight: 100;
+      .MuiSvgIcon-root {
+        margin-right: 3vw;
+      }
     }
   }
 }

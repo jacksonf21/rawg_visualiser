@@ -1,4 +1,5 @@
 .game-navbar {
+  background-color: white;
   display: flex;
   justify-content: space-between;
   margin-top: 1vh;
@@ -11,6 +12,13 @@
     margin-left: 3vw;
   }
   .game-navbar__icons {
+    display: flex;
+    justify-content: space-between;
     margin-right: 3vw;
+    width: 16vw;
+
+    .MuiSvgIcon-root {
+      cursor: pointer;
+    }
   }
 }

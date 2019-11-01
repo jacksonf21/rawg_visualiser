@@ -63,7 +63,6 @@ export default function Visualiser({ ratings }) {
   return (
     <div>
       <div className='piechart-container'>
-        {/* <div className='piechart-container__overlay'>{`${ratingPercent[ratingCategory]}%`}</div> */}
         <svg className={pieClass} width='300' height='200'></svg>
       </div>
       

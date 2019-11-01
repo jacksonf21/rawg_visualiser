@@ -23,15 +23,40 @@
   right: 0;
   margin-right: 2vw;
 }
+.game-header .game-header__container .game-header__container--next .MuiSvgIcon-root {
+  cursor: pointer;
+}
 .game-header .game-header__container .game-header__container--previous {
   position: absolute;
   left: 0;
   margin-left: 2vw;
 }
+.game-header .game-header__container .game-header__container--previous .MuiSvgIcon-root {
+  cursor: pointer;
+}
 .game-header .game-header__nav {
   display: flex;
   justify-content: space-around;
   margin-top: 2.5vh;
+}
+.game-header .game-header__nav div {
+  padding: 1.2vw;
+  cursor: pointer;
+}
+.game-header .game-header__nav--year .year {
+  background-color: gray;
+  border-radius: 5px;
+  padding: 1.2vw;
+}
+.game-header .game-header__nav--this-month .this-month {
+  background-color: gray;
+  border-radius: 5px;
+  padding: 1.2vw;
+}
+.game-header .game-header__nav--next-month .next-month {
+  background-color: gray;
+  border-radius: 5px;
+  padding: 1.2vw;
 }
 
 .game-main {
@@ -52,6 +77,9 @@
 .game-main .game-main__header .game-main__header__count {
   font-size: 5vh;
   font-weight: 100;
+}
+.game-main .game-main__header .game-main__header__count .MuiSvgIcon-root {
+  margin-right: 3vw;
 }
 
 /*# sourceMappingURL=content.css.map */

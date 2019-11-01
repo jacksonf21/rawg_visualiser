@@ -39,4 +39,20 @@
 .category-rating-container {
   display: flex;
   justify-content: space-between;
+  .category-rating-container__exceptional {
+    margin: 3vw;
+    background-color: #4daf4a;
+  }
+  .category-rating-container__recommended {
+    margin: 3vw;
+    background-color: #377eb8;
+  }
+  .category-rating-container__skip {
+    margin: 3vw;
+    background-color: #ff7f00;
+  }
+  .category-rating-container__meh {
+    margin: 3vw;
+    background-color: #cc0000;
+  }
 }
