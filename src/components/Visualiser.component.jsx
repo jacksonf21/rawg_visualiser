@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as d3 from 'd3';
+const { d3test } = require('../d3test');
+
 
 export default function Visualiser({ ratings }) {
   let allRatings = '';
 
   const data = [];
-  const pie = d3.pie();
 
   //this is empty
-  let arcs = pie(data);
-  let arc = d3.arc()(arcs);
-  
   if (ratings) {
     const sortedRatings = ratings.sort((b, a) => (b.id > a.id) ? -1 : 1);
 
@@ -30,18 +28,20 @@ export default function Visualiser({ ratings }) {
         </div>
       )
     })
-    arcs = pie(data);
-    arc = d3.arc()(arcs)
-    console.log(arcs);
-    console.log(arc);
   }
+  
+  useEffect(() => {
+    if (d3.select(".piechart")['_groups'][0] !== null) {
+      d3test(data);
+    }
+  })
 
   return (
     <div>
       {ratings && (
         allRatings
       )}
-      <svg width='300' height='200'></svg>
+      <svg className='piechart' width='300' height='200'></svg>
     </div>
   );
 }

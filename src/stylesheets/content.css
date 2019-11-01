@@ -30,4 +30,9 @@
   justify-content: space-around;
 }
 
+.game-main {
+  margin: 3vw;
+  border: 1px solid black;
+}
+
 /*# sourceMappingURL=content.css.map */
