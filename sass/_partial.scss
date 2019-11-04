@@ -1,0 +1,16 @@
+@mixin flexCenter {
+  align-items: center;
+  display: flex;
+  justify-content: center;  
+}
+
+@mixin gameHeaderNav($color) {
+  background-color: $color;
+  border-radius: 5px;
+  padding: 1.2vw;
+}
+
+@mixin fontSizeWeight($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+}

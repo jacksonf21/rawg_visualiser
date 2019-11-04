@@ -4,19 +4,17 @@
 
 .game-header .game-header__container {
   align-items: center;
-  border-bottom: 1px solid gray;
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid gray;
   min-height: 10vh;
-  margin-right: 3vw;
-  margin-left: 3vw;
+  margin: 0 3vw 0 3vw;
   position: relative;
 }
 .game-header .game-header__container .game-header__container__title {
   font-size: 4vh;
   font-weight: 100;
-  margin-left: 10vw;
-  margin-right: 10vw;
+  margin: 0 10vw 0 10vw;
 }
 .game-header .game-header__container .game-header__container--next {
   position: absolute;

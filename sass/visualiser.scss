@@ -1,3 +1,13 @@
+@import 'partial';
+
+@mixin marginBgColor($margin, $bgcolor) {
+  margin: $margin;
+  background-color: $bgcolor;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 .piechart-container {
   display: flex;
   justify-content: center;
@@ -5,10 +15,9 @@
   position: relative;
 
   .piechart-container__overlay {
+    @include fontSizeWeight(4vh, 100);
     margin-top: 3vh;
-    font-size: 4vh;
-    font-weight: 100;
-    transform: translate(1.5vh, 1.5vh);
+    transform: translate(0vh, 1.5vh);
   }
 
   .piechart-container__piechart {
@@ -39,20 +48,29 @@
 .category-rating-container {
   display: flex;
   justify-content: space-between;
+  
   .category-rating-container__exceptional {
-    margin: 3vw;
-    background-color: #4daf4a;
+    @include marginBgColor(3vw, #4daf4a);
+  }
+  .category-rating-container__exceptional:focus {
+    transform: scale(1.25);
   }
   .category-rating-container__recommended {
-    margin: 3vw;
-    background-color: #377eb8;
+    @include marginBgColor(3vw, #377eb8);
+  }
+  .category-rating-container__recommended:focus {
+    transform: scale(1.25);
   }
   .category-rating-container__skip {
-    margin: 3vw;
-    background-color: #ff7f00;
+    @include marginBgColor(3vw, #cc0000);
+  }
+  .category-rating-container__skip:focus {
+    transform: scale(1.25);
   }
   .category-rating-container__meh {
-    margin: 3vw;
-    background-color: #cc0000;
+    @include marginBgColor(3vw, #ff7f00);
+  }
+  .category-rating-container__meh:focus {
+    transform: scale(1.25);
   }
 }
