@@ -58,21 +58,25 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
       
         <nav className={gameHeaderNav}>
           <div className='year' onClick={() => gamesAPIdata('http://localhost:8000')}>
-            THIS YEAR
+            Annual
           </div>
           <div className='this-month' onClick={() => gamesAPIdata('http://localhost:8000/this-month')}>
-            THIS MONTH
+            Month
           </div>
           <div className='next-month' onClick={() => gamesAPIdata('http://localhost:8000/upcoming-month')}>
-            NEXT MONTH
+            Upcoming
           </div>
         </nav>
 
       </header>
 
       <article className='game-main'>
-        {rating[select]}
-        {visualPiece[select]}
+        <div className='game-main__dashboard'>
+          {rating[select]}
+          {visualPiece[select]}
+        </div>
+        <footer className='game-main__footer'>
+        </footer>
       </article>      
       
       <ComparitiveVisualiser 

@@ -8,6 +8,8 @@
   background-color: $color;
   border-radius: 5px;
   padding: 1.2vw;
+  color: black;
+  font-size: 3.5vh;
 }
 
 @mixin fontSizeWeight($size, $weight) {

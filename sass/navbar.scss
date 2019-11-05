@@ -1,14 +1,16 @@
 .game-navbar {
-  background-color: white;
+  background-color: #5B65FA;
   display: flex;
   justify-content: space-between;
-  margin-top: 1vh;
+  padding-top: 1vh;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 3;
   
   .game-navbar__logo {
+    color: white;
+    opacity: .5;
     margin-left: 3vw;
   }
   .game-navbar__icons {
@@ -19,6 +21,8 @@
 
     .MuiSvgIcon-root {
       cursor: pointer;
+      color: white;
+      opacity: .5;
     }
   }
 }
