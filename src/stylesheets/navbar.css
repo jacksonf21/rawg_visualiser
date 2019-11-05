@@ -1,6 +1,7 @@
 .game-navbar {
   background-color: #5B65FA;
   display: flex;
+  height: 4vh;
   justify-content: space-between;
   padding-top: 1vh;
   position: fixed;

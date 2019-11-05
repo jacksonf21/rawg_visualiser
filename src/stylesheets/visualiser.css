@@ -28,14 +28,15 @@
 
 .category-rating-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .category-rating-container .category-rating-container__exceptional {
   margin: 3vw;
   background-color: #4daf4a;
-  width: 30px;
-  height: 30px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 .category-rating-container .category-rating-container__exceptional:focus {
   transform: scale(1.25);
@@ -43,9 +44,10 @@
 .category-rating-container .category-rating-container__recommended {
   margin: 3vw;
   background-color: #377eb8;
-  width: 30px;
-  height: 30px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 .category-rating-container .category-rating-container__recommended:focus {
   transform: scale(1.25);
@@ -53,9 +55,10 @@
 .category-rating-container .category-rating-container__skip {
   margin: 3vw;
   background-color: #cc0000;
-  width: 30px;
-  height: 30px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 .category-rating-container .category-rating-container__skip:focus {
   transform: scale(1.25);
@@ -63,9 +66,10 @@
 .category-rating-container .category-rating-container__meh {
   margin: 3vw;
   background-color: #ff7f00;
-  width: 30px;
-  height: 30px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 .category-rating-container .category-rating-container__meh:focus {
   transform: scale(1.25);

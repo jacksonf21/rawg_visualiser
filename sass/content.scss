@@ -4,23 +4,24 @@
   padding-top: 4.5vh;
   display: flex;
   flex-direction: column;
-  min-height: 95vh;
+  min-height: 95.5vh;
 }
 
 .game-header {
   border-radius: 0 0 7px 7px;
-  background-color: #5B65FA; 
+  background-color: #5B65FA;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05); 
   color: white;
 
   .game-header__container {
     @include flexCenter;
-    border-bottom: 1px solid white;
+    // border-bottom: 1px solid white;
     min-height: 10vh;
-    margin: 0 3vw 0 3vw;
+    margin: 1vh 3vw 1vh 3vw;
     position: relative;
 
     .game-header__container__title {
-      @include fontSizeWeight(4vh, 100);
+      @include fontSizeWeight(7vw, 100);
       margin: 0 10vw 0 10vw;
     }
 
@@ -44,12 +45,18 @@
 
   }
 
+  .game-header__divider {
+    height: .25vh;
+    border-bottom: 1px solid white;
+    margin-left: 10vw;
+    width: 80vw;
+  }
+
   .game-header__nav {
+    @include fontSizeWeight(6.25vw, 100);
     display: flex;
     justify-content: space-around;
-    margin: 1.5vh 0 1.5vh 0;
-    font-weight: 100;
-    font-size: 3.5vh;
+    margin: 1.5vh 5vw 1.5vh 5vw;
     div {
       padding: 1.2vw;
       cursor: pointer;
@@ -76,20 +83,49 @@
 }
 
 .game-main {
-  border: 1px solid black;
-  margin: 3vw;
+  padding: 5vw;
+  flex: 1 1 auto;
+  background-color: #F2F2F2;
+
+  .game-main__dashboard {
+    padding: 1vw;
+    background-color: #F8F8F8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .game-main__footer {
+    @include flexCenter;
+    @include fontSizeWeight(6.5vw, 100);
+    background-color: #F8F8F8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    justify-content: space-evenly;
+    margin-top: 3vh;
+    min-height: 10vh;
+    
+    .game-main__footer--add-to-watchlist {
+      @include fontSizeWeight(6.5vw, 100);
+      @include flexCenter;
+      background-color: #5B65FA;
+      border-radius: 10px;
+      color: white;
+      width: 12vw;
+      height: 5vh;
+    }
+  }
+
   .game-main__header {
-    border-bottom: 1px solid gray;
     display: flex;
     justify-content: space-between;
-    margin: 3vh 3vw 3vh 3vw;
+    margin: 1.2vh 3vw 0 3vw;
     padding-bottom: 1.3vh;
 
     .game-main__header__rating {
-      @include fontSizeWeight(5vh, 100);
+      @include fontSizeWeight(9vw, 100);
     }
     .game-main__header__count {
-      @include fontSizeWeight(5vh, 100);
+      @include fontSizeWeight(9vw, 100);
       
       .MuiSvgIcon-root {
         margin-right: 3vw;

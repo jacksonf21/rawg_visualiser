@@ -3,9 +3,10 @@
 @mixin marginBgColor($margin, $bgcolor) {
   margin: $margin;
   background-color: $bgcolor;
-  width: 30px;
-  height: 30px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 
 .piechart-container {
@@ -47,7 +48,7 @@
 
 .category-rating-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   
   .category-rating-container__exceptional {
     @include marginBgColor(3vw, #4daf4a);

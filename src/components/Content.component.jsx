@@ -55,7 +55,11 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
             <ArrowRightIcon />
           </div>  
         </main>
-      
+
+        <div className='game-header__divider'>
+          <br></br>
+        </div>
+
         <nav className={gameHeaderNav}>
           <div className='year' onClick={() => gamesAPIdata('http://localhost:8000')}>
             Annual
@@ -76,6 +80,8 @@ export default function Header({ nextGame, previousGame, games, select, gamesAPI
           {visualPiece[select]}
         </div>
         <footer className='game-main__footer'>
+          <div>Add to Watchlist</div>
+          <div className='game-main__footer--add-to-watchlist'>+</div>
         </footer>
       </article>      
       

@@ -29,7 +29,7 @@ export default function Visualiser({ ratings }) {
       data.push(Number(rating.percent.toFixed(0)));
       return (
         <div key={`category-rating-container__${rating.title}`} className={`category-rating-container__${rating.title}`} onClick={() => selectRatingCategory(idx)} tabIndex='0'>
-          <div>
+          {/* <div>
             {rating.title}
           </div>
           <div>
@@ -37,7 +37,7 @@ export default function Visualiser({ ratings }) {
           </div>
           <div>
             {rating.count}
-          </div>
+          </div> */}
         </div>
       )
     });

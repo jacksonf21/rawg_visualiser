@@ -6,10 +6,10 @@
 
 @mixin gameHeaderNav($color) {
   background-color: $color;
-  border-radius: 5px;
-  padding: 1.2vw;
+  border-radius: 20px;
+  padding: 1.2vw 2.5vw;
   color: black;
-  font-size: 3.5vh;
+  font-size: 6.25vw;
 }
 
 @mixin fontSizeWeight($size, $weight) {

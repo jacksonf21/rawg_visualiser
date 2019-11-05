@@ -2,25 +2,25 @@
   padding-top: 4.5vh;
   display: flex;
   flex-direction: column;
-  min-height: 95vh;
+  min-height: 95.5vh;
 }
 
 .game-header {
   border-radius: 0 0 7px 7px;
   background-color: #5B65FA;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   color: white;
 }
 .game-header .game-header__container {
   align-items: center;
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid white;
   min-height: 10vh;
-  margin: 0 3vw 0 3vw;
+  margin: 1vh 3vw 1vh 3vw;
   position: relative;
 }
 .game-header .game-header__container .game-header__container__title {
-  font-size: 4vh;
+  font-size: 7vw;
   font-weight: 100;
   margin: 0 10vw 0 10vw;
 }
@@ -40,12 +40,18 @@
 .game-header .game-header__container .game-header__container--previous .MuiSvgIcon-root {
   cursor: pointer;
 }
+.game-header .game-header__divider {
+  height: 0.25vh;
+  border-bottom: 1px solid white;
+  margin-left: 10vw;
+  width: 80vw;
+}
 .game-header .game-header__nav {
+  font-size: 6.25vw;
+  font-weight: 100;
   display: flex;
   justify-content: space-around;
-  margin: 1.5vh 0 1.5vh 0;
-  font-weight: 100;
-  font-size: 3.5vh;
+  margin: 1.5vh 5vw 1.5vh 5vw;
 }
 .game-header .game-header__nav div {
   padding: 1.2vw;
@@ -53,43 +59,74 @@
 }
 .game-header .game-header__nav--year .year {
   background-color: white;
-  border-radius: 5px;
-  padding: 1.2vw;
+  border-radius: 20px;
+  padding: 1.2vw 2.5vw;
   color: black;
-  font-size: 3.5vh;
+  font-size: 6.25vw;
 }
 .game-header .game-header__nav--this-month .this-month {
   background-color: white;
-  border-radius: 5px;
-  padding: 1.2vw;
+  border-radius: 20px;
+  padding: 1.2vw 2.5vw;
   color: black;
-  font-size: 3.5vh;
+  font-size: 6.25vw;
 }
 .game-header .game-header__nav--next-month .next-month {
   background-color: white;
-  border-radius: 5px;
-  padding: 1.2vw;
+  border-radius: 20px;
+  padding: 1.2vw 2.5vw;
   color: black;
-  font-size: 3.5vh;
+  font-size: 6.25vw;
 }
 
 .game-main {
-  border: 1px solid black;
-  margin: 3vw;
+  padding: 5vw;
+  flex: 1 1 auto;
+  background-color: #F2F2F2;
+}
+.game-main .game-main__dashboard {
+  padding: 1vw;
+  background-color: #F8F8F8;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+}
+.game-main .game-main__footer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-size: 6.5vw;
+  font-weight: 100;
+  background-color: #F8F8F8;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  justify-content: space-evenly;
+  margin-top: 3vh;
+  min-height: 10vh;
+}
+.game-main .game-main__footer .game-main__footer--add-to-watchlist {
+  font-size: 6.5vw;
+  font-weight: 100;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #5B65FA;
+  border-radius: 10px;
+  color: white;
+  width: 12vw;
+  height: 5vh;
 }
 .game-main .game-main__header {
-  border-bottom: 1px solid gray;
   display: flex;
   justify-content: space-between;
-  margin: 3vh 3vw 3vh 3vw;
+  margin: 1.2vh 3vw 0 3vw;
   padding-bottom: 1.3vh;
 }
 .game-main .game-main__header .game-main__header__rating {
-  font-size: 5vh;
+  font-size: 9vw;
   font-weight: 100;
 }
 .game-main .game-main__header .game-main__header__count {
-  font-size: 5vh;
+  font-size: 9vw;
   font-weight: 100;
 }
 .game-main .game-main__header .game-main__header__count .MuiSvgIcon-root {
