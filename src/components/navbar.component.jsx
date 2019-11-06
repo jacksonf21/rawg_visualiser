@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../stylesheets/navbar.css'
 import SearchIcon from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
 
 export default function Navbar() {
+
   return (
     <nav className='game-navbar'>
       <div className='game-navbar__logo'>Title</div>

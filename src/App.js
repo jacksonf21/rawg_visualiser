@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Content from './components/Content.component';
-import './stylesheets/app.css';
 import Navbar from './components/navbar.component';
+import './stylesheets/app.css';
 
 function App() {
+  //Consider setting reducer or just object [prob object]
   const [state, setState] = useState([]);
   const [select, setSelect] = useState(0);
   const [category, setCategory] = useState(0);
+
+  const [menu, setMenu] = useState(0);
+  const [search, setSearch] = useState(0);
 
   const gamesAPIdata = (url) => {
     Axios.get(url)

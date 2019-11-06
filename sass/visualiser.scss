@@ -18,7 +18,12 @@
   .piechart-container__overlay {
     @include fontSizeWeight(4vh, 100);
     margin-top: 3vh;
-    transform: translate(0vh, 1.5vh);
+    transform: translate(0vh, 2.75vh);
+  }
+  
+  .piechart-container__overlay--title {
+    @include fontSizeWeight(5vw, 100);
+    transform: translate(0vh, -2.25vh);
   }
 
   .piechart-container__piechart {

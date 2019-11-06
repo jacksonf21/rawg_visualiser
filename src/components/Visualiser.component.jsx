@@ -8,7 +8,7 @@ const classNames = require('classnames');
 export default function Visualiser({ ratings }) {
   const [ratingCategory, setRatingCategory] = useState(0);
   let allRatings = '';
-  let ratingPercent = 0;
+  let ratingsData = 0;
   const data = [];
 
   const selectRatingCategory = (num) => {
@@ -42,9 +42,9 @@ export default function Visualiser({ ratings }) {
       )
     });
 
-    ratingPercent = sortedRatings.map(rating => {
+    ratingsData = sortedRatings.map(rating => {
       return (
-        rating.percent
+        [rating.percent, `${rating.title[0].toUpperCase()}${rating.title.slice(1, rating.title.length)}`]
       )
     })
   }
@@ -56,7 +56,7 @@ export default function Visualiser({ ratings }) {
 
       //CHOSE TO DELETE ANY EXISTING PIECHART ON EACH NEW RENDER
       if (piechart.length) piechart[0].remove();
-      d3test(data, ratingPercent[ratingCategory]);
+      d3test(data, ratingsData[ratingCategory]);
     }
   })
 

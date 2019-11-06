@@ -8,7 +8,12 @@
   font-size: 4vh;
   font-weight: 100;
   margin-top: 3vh;
-  transform: translate(0vh, 1.5vh);
+  transform: translate(0vh, 2.75vh);
+}
+.piechart-container .piechart-container__overlay--title {
+  font-size: 5vw;
+  font-weight: 100;
+  transform: translate(0vh, -2.25vh);
 }
 .piechart-container .piechart-container__piechart {
   min-height: 40vh;
