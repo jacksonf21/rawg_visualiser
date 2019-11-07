@@ -1,54 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Axios from 'axios';
 import Content from './components/Content.component';
 import Navbar from './components/navbar.component';
 import './stylesheets/app.css';
 
-function App() {
-  //Consider setting reducer or just object [prob object]
-  const [state, setState] = useState([]);
-  const [select, setSelect] = useState(0);
-  const [category, setCategory] = useState(0);
+import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA } from './helper/reducer'
+import GameHeader from './components/GameHeader.component';
+import Category from './components/Category.component';
+import GameBody from './components/GameBody.component';
 
-  const [menu, setMenu] = useState(0);
-  const [search, setSearch] = useState(0);
+function App() {
+
+  const [state, dispatch] = useReducer(reducer, {
+    game: [],
+    select: null,
+    category: null,
+    menu: 0,
+    search: 0
+  });
 
   const gamesAPIdata = (url) => {
     Axios.get(url)
       .then(res => {
-        setState(res.data);
-        setSelect(0);
-        url === 'http://localhost:8000' 
-        ? setCategory(0) :
-        url === 'http://localhost:8000/this-month' 
-        ? setCategory(1) : setCategory(2)
+        dispatch({ type: SET_GAME, value: res.data })
+        dispatch({ type: SET_SELECT, value: 0 });
+        dispatch({ type: SET_CATEGORY_DATA, value: url})
       })
   };
 
-  useEffect(() => {
-    gamesAPIdata('http://localhost:8000')
-  },[]);
+  useEffect(() => gamesAPIdata('http://localhost:8000'),[]);
 
-  const nextGame = () => {
-    if (select === state.length) return;
-    setSelect(select => select + 1);
-  };
+  const nextGame = () => dispatch({ type: NEXT_GAME, value: state.select });
+  const previousGame = () => dispatch({ type: PREVIOUS_GAME, value: state.select });
 
-  const previousGame = () => {
-    if (select === 0) return;
-    setSelect(select => select - 1);
-  };
+  const gameHeader = (
+    <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} />
+  );
+
+  const category = (
+    <Category category={state.category} gamesAPIdata={gamesAPIdata} />
+  );
+
+  const gameBody = (
+    <GameBody games={state.game} select={state.select} />
+  );
 
   return (
     <div className="App">
       <Navbar />
       <Content
-        select={select}
+        gameHeader={gameHeader}
         category={category}
-        games={state}
-        gamesAPIdata={gamesAPIdata}
-        nextGame={nextGame}
-        previousGame={previousGame}
+        gameBody={gameBody}
       />
     </div>
   );

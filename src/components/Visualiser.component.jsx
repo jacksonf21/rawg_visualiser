@@ -7,13 +7,10 @@ const classNames = require('classnames');
 
 export default function Visualiser({ ratings }) {
   const [ratingCategory, setRatingCategory] = useState(0);
+  
   let allRatings = '';
   let ratingsData = 0;
   const data = [];
-
-  const selectRatingCategory = (num) => {
-    setRatingCategory(num);
-  };
 
   const pieClass = classNames('piechart-container__piechart', {
     'piechart-container__piechart--exceptional-selected' : ratingCategory === 0,
@@ -28,7 +25,7 @@ export default function Visualiser({ ratings }) {
     allRatings = sortedRatings.map((rating, idx) => {
       data.push(Number(rating.percent.toFixed(0)));
       return (
-        <div key={`category-rating-container__${rating.title}`} className={`category-rating-container__${rating.title}`} onClick={() => selectRatingCategory(idx)} tabIndex='0'>
+        <div key={`category-rating-container__${rating.title}`} className={`category-rating-container__${rating.title}`} onClick={() => setRatingCategory(idx)} tabIndex='0'>
         </div>
       )
     });
