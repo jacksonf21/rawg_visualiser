@@ -10,6 +10,7 @@ import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 const classNames = require('classnames');
 
 export default function Header({ nextGame, previousGame, games, select, gamesAPIdata, category }) {
+  
   const topTwenty = games.map(game => {
     return (
       <div className='game-header__container__title'>{game.name}</div>
