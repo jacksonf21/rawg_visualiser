@@ -4,6 +4,7 @@ export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
 export const NEXT_GAME = 'NEXT_GAME';
 export const PREVIOUS_GAME = 'PREVIOUS_GAME';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
+export const TOGGLE_SEARCH = 'TOGGLE_SEARCH';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -49,6 +50,10 @@ export default function reducer(state, action) {
       console.log('fire')
       if (action.value === 0) return { ...state, menu: 1 }
       else return { ...state, menu: 0 }
+
+    case TOGGLE_SEARCH:
+        if (action.value === 0) return { ...state, search: 1 }
+        else return { ...state, search: 0 }
 
     default:
       throw new Error(

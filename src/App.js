@@ -4,14 +4,15 @@ import Content from './components/Content.component';
 import Navbar from './components/navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU } from './helper/reducer'
+import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU, TOGGLE_SEARCH } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
 import GameBody from './components/GameBody.component';
 
-import { menuClassName, overlayClassName } from './helper/helper';
+import { templateClassName } from './helper/helper';
 import Menu from './components/Menu.component';
+import Search from './components/Search.component';
 
 function App() {
 
@@ -36,7 +37,8 @@ function App() {
 
   const nextGame = () => dispatch({ type: NEXT_GAME, value: state.select });
   const previousGame = () => dispatch({ type: PREVIOUS_GAME, value: state.select });
-  const menuToggle = () => dispatch({ type: TOGGLE_MENU, value: state.menu })
+  const menuToggle = () => dispatch({ type: TOGGLE_MENU, value: state.menu });
+  const searchToggle = () => dispatch({ type: TOGGLE_SEARCH, value: state.search })
 
   const gameHeader = (
     <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} />
@@ -50,14 +52,18 @@ function App() {
     <GameBody games={state.game} select={state.select} />
   );
 
-  const overlayClass = overlayClassName(state.menu);
-  const menuClass = menuClassName(state.menu);
+  const menuOverlayClass = templateClassName(state.menu, 'menu-overlay', 'menu-overlay--visible');
+  const menuClass = templateClassName(state.menu, 'menu', 'menu--visible');
+  const searchClass = templateClassName(state.search, 'search', 'search--visible');
+  const searchOverlayClass = templateClassName(state.search, 'search-overlay', 'search-overlay--visible');
 
   return (
     <div className="App">
-      <div className={overlayClass} onClick={() => menuToggle()}/>
+      <div className={searchOverlayClass} onClick={() => searchToggle()}/>
+      <div className={menuOverlayClass} onClick={() => menuToggle()}/>
       <Menu menuClass={menuClass}/>
-      <Navbar menuToggle={menuToggle} />
+      <Search searchClass={searchClass}/>
+      <Navbar menuToggle={menuToggle} searchToggle={searchToggle}/>
       <Content
         gameHeader={gameHeader}
         category={category}

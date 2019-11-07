@@ -1,15 +1,9 @@
 const classNames = require('classnames');
 
-const overlayClassName = (state) => {
-  return classNames('menu-overlay', {
-    'menu-overlay--visible' : state === 1
-  });
-}
+const templateClassName = (state, typical, iftrue) => {
+  return classNames(typical, {
+    [iftrue] : state === 1
+  })
+};
 
-const menuClassName = (state) => {
-  return classNames('menu', {
-    'menu--visible' : state === 1
-  });
-}
-
-module.exports = { overlayClassName, menuClassName }
+module.exports = { templateClassName }

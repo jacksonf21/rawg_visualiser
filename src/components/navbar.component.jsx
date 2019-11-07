@@ -3,13 +3,13 @@ import '../stylesheets/navbar.css'
 import SearchIcon from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
 
-export default function Navbar({ menuToggle }) {
+export default function Navbar({ menuToggle, searchToggle }) {
 
   return (
     <nav className='game-navbar'>
       <div className='game-navbar__logo'>Title</div>
       <div className='game-navbar__icons'>
-        <SearchIcon />
+        <SearchIcon onClick={() => searchToggle()} />
         <MenuIcon onClick={() => menuToggle()}/>
       </div>
     </nav>
