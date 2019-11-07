@@ -4,10 +4,14 @@ import Content from './components/Content.component';
 import Navbar from './components/navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA } from './helper/reducer'
+import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU } from './helper/reducer'
+
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
 import GameBody from './components/GameBody.component';
+
+import { menuClassName, overlayClassName } from './helper/helper';
+import Menu from './components/Menu.component';
 
 function App() {
 
@@ -32,6 +36,7 @@ function App() {
 
   const nextGame = () => dispatch({ type: NEXT_GAME, value: state.select });
   const previousGame = () => dispatch({ type: PREVIOUS_GAME, value: state.select });
+  const menuToggle = () => dispatch({ type: TOGGLE_MENU, value: state.menu })
 
   const gameHeader = (
     <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} />
@@ -45,9 +50,14 @@ function App() {
     <GameBody games={state.game} select={state.select} />
   );
 
+  const overlayClass = overlayClassName(state.menu);
+  const menuClass = menuClassName(state.menu);
+
   return (
     <div className="App">
-      <Navbar />
+      <div className={overlayClass} onClick={() => menuToggle()}/>
+      <Menu menuClass={menuClass}/>
+      <Navbar menuToggle={menuToggle} />
       <Content
         gameHeader={gameHeader}
         category={category}

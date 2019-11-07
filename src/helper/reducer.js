@@ -3,6 +3,7 @@ export const SET_SELECT = 'SET_SELECT';
 export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
 export const NEXT_GAME = 'NEXT_GAME';
 export const PREVIOUS_GAME = 'PREVIOUS_GAME';
+export const TOGGLE_MENU = 'TOGGLE_MENU';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -43,6 +44,11 @@ export default function reducer(state, action) {
       return {
         ...state, select: selectedValuePrev
       }
+
+    case TOGGLE_MENU:
+      console.log('fire')
+      if (action.value === 0) return { ...state, menu: 1 }
+      else return { ...state, menu: 0 }
 
     default:
       throw new Error(
