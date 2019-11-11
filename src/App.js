@@ -4,7 +4,7 @@ import Content from './components/Content.component';
 import Navbar from './components/navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU, TOGGLE_SEARCH } from './helper/reducer'
+import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU, TOGGLE_SEARCH, SET_ARROWS, SET_SEARCH_TEXT } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -21,7 +21,9 @@ function App() {
     select: null,
     category: null,
     menu: 0,
-    search: 0
+    search: 0,
+    arrows: null,
+    searchText: null
   });
 
   const gamesAPIdata = (url) => {
@@ -29,7 +31,8 @@ function App() {
       .then(res => {
         dispatch({ type: SET_GAME, value: res.data })
         dispatch({ type: SET_SELECT, value: 0 });
-        dispatch({ type: SET_CATEGORY_DATA, value: url})
+        dispatch({ type: SET_CATEGORY_DATA, value: url })
+        dispatch({ type: SET_ARROWS, value: res.data })
       })
   };
 
@@ -40,8 +43,12 @@ function App() {
   const menuToggle = () => dispatch({ type: TOGGLE_MENU, value: state.menu });
   const searchToggle = () => dispatch({ type: TOGGLE_SEARCH, value: state.search })
 
+  const onSearchType = (e) => {
+    dispatch({ type: SET_SEARCH_TEXT, value: e.target.value })
+  };
+
   const gameHeader = (
-    <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} />
+    <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} arrows={state.arrows} />
   );
 
   const category = (
@@ -62,7 +69,7 @@ function App() {
       <div className={searchOverlayClass} onClick={() => searchToggle()}/>
       <div className={menuOverlayClass} onClick={() => menuToggle()}/>
       <Menu menuClass={menuClass}/>
-      <Search searchClass={searchClass}/>
+      <Search searchClass={searchClass} onSearchType={onSearchType}/>
       <Navbar menuToggle={menuToggle} searchToggle={searchToggle}/>
       <Content
         gameHeader={gameHeader}

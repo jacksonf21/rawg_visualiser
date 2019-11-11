@@ -4,10 +4,12 @@ body {
 }
 
 .menu-overlay, .search-overlay {
+  position: absolute;
   z-index: -5;
 }
 
 .menu, .search {
+  position: absolute;
   z-index: -5;
 }
 

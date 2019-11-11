@@ -5,6 +5,8 @@ export const NEXT_GAME = 'NEXT_GAME';
 export const PREVIOUS_GAME = 'PREVIOUS_GAME';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
 export const TOGGLE_SEARCH = 'TOGGLE_SEARCH';
+export const SET_ARROWS = 'SET_ARROWS';
+export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -52,8 +54,20 @@ export default function reducer(state, action) {
       else return { ...state, menu: 0 }
 
     case TOGGLE_SEARCH:
-        if (action.value === 0) return { ...state, search: 1 }
-        else return { ...state, search: 0 }
+      if (action.value === 0) return { ...state, search: 1 }
+      else return { ...state, search: 0 }
+
+    case SET_ARROWS:
+      if (action.value.length === 1) {
+        return { ...state, arrows: 0 }
+      } else {
+        return { ...state, arrows: 1 }
+      }
+
+    case SET_SEARCH_TEXT:
+      return {
+        ...state, searchText: action.value
+      }
 
     default:
       throw new Error(
