@@ -21,7 +21,9 @@ export default function reducer(state, action) {
       action.value === 'http://localhost:8000'
       ? category = 0 :
       action.value === 'http://localhost:8000/this-month'
-      ? category = 1 : category = 2;
+      ? category = 1 : 
+      action.value === 'http://localhost:8000/upcoming-month'
+      ? category = 2 : category = null;
 
       return {
         ...state, category: category
@@ -49,7 +51,6 @@ export default function reducer(state, action) {
       }
 
     case TOGGLE_MENU:
-      console.log('fire')
       if (action.value === 0) return { ...state, menu: 1 }
       else return { ...state, menu: 0 }
 

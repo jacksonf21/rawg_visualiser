@@ -13,10 +13,10 @@ export default function Category({ category, gamesAPIdata }) {
   return (
     <nav className={gameHeaderNav}>
         
-    <div className='year' onClick={() => gamesAPIdata('http://localhost:8000')}>Annual</div>
-    <div className='this-month' onClick={() => gamesAPIdata('http://localhost:8000/this-month')}>Month</div>
-    <div className='next-month' onClick={() => gamesAPIdata('http://localhost:8000/upcoming-month')}>Upcoming</div>
+      <div className='year' onClick={() => gamesAPIdata('http://localhost:8000')}>Annual</div>
+      <div className='this-month' onClick={() => gamesAPIdata('http://localhost:8000/this-month')}>Month</div>
+      <div className='next-month' onClick={() => gamesAPIdata('http://localhost:8000/upcoming-month')}>Upcoming</div>
   
-  </nav>
+    </nav>
   )
 }

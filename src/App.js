@@ -42,11 +42,22 @@ function App() {
   const previousGame = () => dispatch({ type: PREVIOUS_GAME, value: state.select });
   const menuToggle = () => dispatch({ type: TOGGLE_MENU, value: state.menu });
   const searchToggle = () => dispatch({ type: TOGGLE_SEARCH, value: state.search })
+  
+  //necessary for measuring resetting
+  let timeout;
 
   const onSearchType = (e) => {
-    dispatch({ type: SET_SEARCH_TEXT, value: e.target.value })
+    const searchValue = e.target.value;
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      const url = `http://localhost:8000/search/${searchValue}`;
+      gamesAPIdata(url);
+      //THIS MAY NOT BE NECESSARY
+      dispatch({ type: SET_SEARCH_TEXT, value: searchValue });
+    }, 1000)
   };
 
+  
   const gameHeader = (
     <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} arrows={state.arrows} />
   );

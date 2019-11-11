@@ -13,17 +13,17 @@ export default function GameHeader({ games, nextGame, previousGame, select, arro
 
   return (
     <main className='game-header__container'>
-      {arrows && (
-        <>
-          <div className='game-header__container--previous' onClick={() => previousGame()}>
-            <ArrowLeftIcon />
-          </div>
-            {topTwenty[select]}
-          <div className='game-header__container--next' onClick={() => nextGame()}>
-            <ArrowRightIcon />
-          </div>  
-          </>
-        )}
+      {arrows === 1 && (
+        <div className='game-header__container--previous' onClick={() => previousGame()}>
+          <ArrowLeftIcon />
+        </div>
+      )}
+      {topTwenty[select]}
+      {arrows === 1 && (
+        <div className='game-header__container--next' onClick={() => nextGame()}>
+          <ArrowRightIcon />
+        </div>  
+      )}  
     </main>
   )
 }
