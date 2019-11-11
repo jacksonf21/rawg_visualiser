@@ -15,12 +15,18 @@ export default function GameBody({ games, select }) {
 
   const visualPiece = games.map(game => {
     return (
-      <article>
-      <Visualiser
-        key={game.name}
-        ratings={game.ratings}
-      />
-    </article>
+      <div>
+        {game.ratings.length !== 0 ? (
+          <article>
+          <Visualiser
+            key={game.name}
+            ratings={game.ratings}
+          />
+         </article>
+        ): (<div className='game-no-data'>
+          Uh Oh! There doesn't seem to be any reviews yet!
+        </div>)}
+      </div>
     );
   });
 

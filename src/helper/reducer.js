@@ -6,7 +6,7 @@ export const PREVIOUS_GAME = 'PREVIOUS_GAME';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
 export const TOGGLE_SEARCH = 'TOGGLE_SEARCH';
 export const SET_ARROWS = 'SET_ARROWS';
-export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
+export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -65,11 +65,10 @@ export default function reducer(state, action) {
         return { ...state, arrows: 1 }
       }
 
-    case SET_SEARCH_TEXT:
+    case SET_SEARCH_FIELDS:
       return {
-        ...state, searchText: action.value
+        ...state, searchFields: action.value
       }
-
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`

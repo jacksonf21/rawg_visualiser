@@ -4,7 +4,7 @@ import Content from './components/Content.component';
 import Navbar from './components/navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU, TOGGLE_SEARCH, SET_ARROWS, SET_SEARCH_TEXT } from './helper/reducer'
+import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU, TOGGLE_SEARCH, SET_ARROWS, SET_SEARCH_FIELDS } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -23,7 +23,7 @@ function App() {
     menu: 0,
     search: 0,
     arrows: null,
-    searchText: null
+    searchFields: []
   });
 
   const gamesAPIdata = (url) => {
@@ -49,15 +49,26 @@ function App() {
   const onSearchType = (e) => {
     const searchValue = e.target.value;
     clearTimeout(timeout)
+
+
     timeout = setTimeout(() => {
-      const url = `http://localhost:8000/search/${searchValue}`;
-      gamesAPIdata(url);
-      //THIS MAY NOT BE NECESSARY
-      dispatch({ type: SET_SEARCH_TEXT, value: searchValue });
+      const url = `http://localhost:8000/search/collection/${searchValue}`;
+      
+      Axios.get(url)
+        .then(res => {
+          if (searchValue) dispatch({ type: SET_SEARCH_FIELDS, value: res.data })
+        })
+
     }, 1000)
   };
 
-  
+  const setSearchData = (idx) => {
+    dispatch({ type: SET_GAME, value: [state.searchFields[idx]] })
+    dispatch({ type: SET_SELECT, value: 0 });
+    dispatch({ type: SET_CATEGORY_DATA, value: null })
+    dispatch({ type: SET_ARROWS, value: [state.searchFields[idx]] })
+  };
+
   const gameHeader = (
     <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} arrows={state.arrows} />
   );
@@ -80,7 +91,7 @@ function App() {
       <div className={searchOverlayClass} onClick={() => searchToggle()}/>
       <div className={menuOverlayClass} onClick={() => menuToggle()}/>
       <Menu menuClass={menuClass}/>
-      <Search searchClass={searchClass} onSearchType={onSearchType}/>
+      <Search searchClass={searchClass} onSearchType={onSearchType} searchFields={state.searchFields} setSearchData={setSearchData}/>
       <Navbar menuToggle={menuToggle} searchToggle={searchToggle}/>
       <Content
         gameHeader={gameHeader}
