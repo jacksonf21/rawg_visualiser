@@ -1,6 +1,7 @@
 import React from 'react';
 import Visualiser from './Visualiser.component';
 import PersonIcon from '@material-ui/icons/Person';
+const { checkGameRatingFields } = require('../helper/helper');
 
 export default function GameBody({ games, select }) {
 
@@ -14,13 +15,17 @@ export default function GameBody({ games, select }) {
   });
 
   const visualPiece = games.map(game => {
+    
+    //GAME RATING NEEDS TO BE CHECKED THAT THE FIELDS CONTAINS EVERYTHING IF NOT IT NEEDS TO BE PATCHED BEFORE PASSING
+    console.log(game)
+
     return (
       <div>
         {game.ratings.length !== 0 ? (
           <article>
           <Visualiser
             key={game.name}
-            ratings={game.ratings}
+            ratings={checkGameRatingFields(game)}
           />
          </article>
         ): (<div className='game-no-data'>
