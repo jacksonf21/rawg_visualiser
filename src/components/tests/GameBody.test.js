@@ -1,6 +1,6 @@
-import React from 'react';
 const { checkGameRatingFields } = require('../../helper/helper');
 
+//ARRANGE
 const rawData = {
   name: 'Plague Tale Innocence', 
   rating: 4.25, 
@@ -11,27 +11,39 @@ const rawData = {
   ] 
 }
 
-it ('titles exceptional', () => {
-  const result = checkGameRatingFields(rawData).some(i => i.title === 'exceptional');
+describe('Game Ratings Object', () => {
+  describe('Should contain property and values', () => {
+    it ('property: title, value: exceptional', () => {
+      //ACT
+      const result = checkGameRatingFields(rawData).some(i => i.title === 'exceptional');
+      
+      //ASSERT
+      expect(result).toBe(true)
+    })
+    
+    it ('property: title, value: recommended', () => {
+      //ACT
+      const result = checkGameRatingFields(rawData).some(i => i.title === 'recommended');
+      
+      //ASSERT
+      expect(result).toBe(true)
+    })
+    
+    it ('property: title, value: meh', () => {
+      //ACT
+      const result = checkGameRatingFields(rawData).some(i => i.title === 'meh');
 
-  expect(result).toBe(true)
+      //ASSERT
+      expect(result).toBe(true)
+    })
+    
+    it ('property: title, value: skip', () => {
+      //ACT
+      const result = checkGameRatingFields(rawData).some(i => i.title === 'skip');
+      
+      //ASSERT
+      expect(result).toBe(true)
+    })
+
+  })
 })
-
-it ('titles recommended', () => {
-  const result = checkGameRatingFields(rawData).some(i => i.title === 'recommended');
-
-  expect(result).toBe(true)
-})
-
-it ('titles meh', () => {
-  const result = checkGameRatingFields(rawData).some(i => i.title === 'meh');
-
-  expect(result).toBe(true)
-})
-
-it ('titles skip', () => {
-  const result = checkGameRatingFields(rawData).some(i => i.title === 'skip');
-
-  expect(result).toBe(true)
-})
-

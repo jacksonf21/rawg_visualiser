@@ -3,9 +3,9 @@ import Visualiser from './Visualiser.component';
 import PersonIcon from '@material-ui/icons/Person';
 const { checkGameRatingFields } = require('../helper/helper');
 
-export default function GameBody({ games, select }) {
+export default function GameBody({ rawgGameData, rawgGameDataIndex }) {
 
-  const rating = games.map(game => {
+  const rating = rawgGameData.map(game => {
     return (
       <div className='game-main__header'>
         <div className='game-main__header__rating'>{game.rating}</div>
@@ -14,10 +14,7 @@ export default function GameBody({ games, select }) {
     );
   });
 
-  const visualPiece = games.map(game => {
-    
-    //GAME RATING NEEDS TO BE CHECKED THAT THE FIELDS CONTAINS EVERYTHING IF NOT IT NEEDS TO BE PATCHED BEFORE PASSING
-    console.log(game)
+  const visualPiece = rawgGameData.map(game => {
 
     return (
       <div>
@@ -37,16 +34,15 @@ export default function GameBody({ games, select }) {
 
   return (
     <article className='game-main'>
-        <div className='game-main__dashboard'>
-          {rating[select]}
-          {visualPiece[select]}
-        </div>
+      <div className='game-main__dashboard'>
+        {rating[rawgGameDataIndex]}
+        {visualPiece[rawgGameDataIndex]}
+      </div>
 
-        <footer className='game-main__footer'>
-          <div>Add to Watchlist</div>
-          <div className='game-main__footer--add-to-watchlist'>+</div>
-        </footer>
-
-      </article>
+      <footer className='game-main__footer'>
+        <div>Add to Watchlist</div>
+        <div className='game-main__footer--add-to-watchlist'>+</div>
+      </footer>
+    </article>
   );
 }

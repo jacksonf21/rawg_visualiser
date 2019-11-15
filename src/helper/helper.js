@@ -6,16 +6,15 @@ const templateClassName = (state, typical, iftrue) => {
   })
 };
 
-//////////////WORK IN PROGRESS//////////////
 const checkGameRatingFields = (game) => {
   const ratings = game.ratings;
-  const desiredRatings = [[5, 'exceptional'], [4, 'recommended'], [3, 'skip'], [1, 'meh']];
+  const desiredRatings = [[5, 'exceptional'], [4, 'recommended'], [3, 'meh'], [1, 'skip']];
   const currentRatings = []; 
 
   currentRatings.push(ratings.some(rating => rating.title === 'exceptional'))
   currentRatings.push(ratings.some(rating => rating.title === 'recommended'))
-  currentRatings.push(ratings.some(rating => rating.title === 'skip'))
   currentRatings.push(ratings.some(rating => rating.title === 'meh'))
+  currentRatings.push(ratings.some(rating => rating.title === 'skip'))
 
   currentRatings.forEach((rating, idx) => {
     if (!rating) {
@@ -28,8 +27,8 @@ const checkGameRatingFields = (game) => {
       ratings.push(newRating)
     }
   })
-
-  return ratings
+  
+  return ratings;
 };
 
 module.exports = { templateClassName, checkGameRatingFields }

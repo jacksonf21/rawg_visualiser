@@ -1,21 +1,21 @@
-export const SET_GAME = 'SET_GAME';
-export const SET_SELECT = 'SET_SELECT';
-export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
-export const NEXT_GAME = 'NEXT_GAME';
-export const PREVIOUS_GAME = 'PREVIOUS_GAME';
+export const SET_RAWG_GAMES_DATA = 'SET_RAWG_GAMES_DATA';
+export const SET_RAWG_GAMES_DATA_INDEX = 'SET_RAWG_GAMES_DATA_INDEX';
+export const SET_CATEGORY_INDEX = 'SET_CATEGORY_INDEX';
+export const INCREASE_RAWG_GAMES_DATA_INDEX = 'INCREASE_RAWG_GAMES_DATA_INDEX';
+export const DECREASE_RAWG_GAMES_DATA_INDEX = 'DECREASE_RAWG_GAMES_DATA_INDEX';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
 export const TOGGLE_SEARCH = 'TOGGLE_SEARCH';
-export const SET_ARROWS = 'SET_ARROWS';
+export const SET_NAVIGATION_ARROWS = 'SET_NAVIGATION_ARROWS';
 export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
 
 export default function reducer(state, action) {
   switch (action.type) {
-    case SET_GAME:
+    case SET_RAWG_GAMES_DATA:
       return {
-        ...state, game: action.value
+        ...state, rawgGameData: action.value
       }
 
-    case SET_CATEGORY_DATA: 
+    case SET_CATEGORY_INDEX: 
       let category;
 
       action.value === 'http://localhost:8000'
@@ -26,28 +26,28 @@ export default function reducer(state, action) {
       ? category = 2 : category = null;
 
       return {
-        ...state, category: category
+        ...state, categoryIndex: category
       }
     
-    case SET_SELECT:
+    case SET_RAWG_GAMES_DATA_INDEX:
       return {
-        ...state, select: action.value
+        ...state, rawgGameDataIndex: action.value
       }
 
-    case NEXT_GAME:
-      if (action.value === state.game.length - 1) return { ...state };
+    case INCREASE_RAWG_GAMES_DATA_INDEX:
+      if (action.value === state.rawgGameData.length - 1) return { ...state };
       const selectedValue = action.value + 1;
       
       return {
-        ...state, select: selectedValue
+        ...state, rawgGameDataIndex: selectedValue
       }
 
-    case PREVIOUS_GAME:
+    case DECREASE_RAWG_GAMES_DATA_INDEX:
       if (action.value === 0) return { ...state };
       const selectedValuePrev = action.value - 1;
         
       return {
-        ...state, select: selectedValuePrev
+        ...state, rawgGameDataIndex: selectedValuePrev
       }
 
     case TOGGLE_MENU:
@@ -58,17 +58,15 @@ export default function reducer(state, action) {
       if (action.value === 0) return { ...state, search: 1 }
       else return { ...state, search: 0 }
 
-    case SET_ARROWS:
-      if (action.value.length === 1) {
-        return { ...state, arrows: 0 }
-      } else {
-        return { ...state, arrows: 1 }
-      }
+    case SET_NAVIGATION_ARROWS:
+      if (action.value === 1) return { ...state, navigationArrows: 0 }
+      else return { ...state, navigationArrows: 1 }
 
     case SET_SEARCH_FIELDS:
       return {
         ...state, searchFields: action.value
       }
+      
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`

@@ -4,7 +4,7 @@ import Content from './components/Content.component';
 import Navbar from './components/navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { NEXT_GAME, SET_SELECT, SET_GAME, PREVIOUS_GAME, SET_CATEGORY_DATA, TOGGLE_MENU, TOGGLE_SEARCH, SET_ARROWS, SET_SEARCH_FIELDS } from './helper/reducer'
+import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -16,40 +16,62 @@ import Search from './components/Search.component';
 
 function App() {
 
+  //rawg is the 3rd party API
   const [state, dispatch] = useReducer(reducer, {
-    game: [],
-    select: null,
-    category: null,
+    rawgGameData: [],
+    rawgGameDataIndex: null,
+    categoryIndex: null,
     menu: 0,
     search: 0,
-    arrows: null,
+    navigationArrows: null,
     searchFields: []
   });
 
-  const gamesAPIdata = (url) => {
+  useEffect(() => renderRawgApiData('http://localhost:8000'),[]);
+
+  const renderRawgApiData = (url) => {
     Axios.get(url)
       .then(res => {
-        dispatch({ type: SET_GAME, value: res.data })
-        dispatch({ type: SET_SELECT, value: 0 });
-        dispatch({ type: SET_CATEGORY_DATA, value: url })
-        dispatch({ type: SET_ARROWS, value: res.data })
+        dispatch({ type: SET_RAWG_GAMES_DATA, value: res.data });
+        dispatch({ type: SET_RAWG_GAMES_DATA_INDEX, value: 0 });
+        dispatch({ type: SET_CATEGORY_INDEX, value: url });
+        dispatch({ type: SET_NAVIGATION_ARROWS, value: res.data.length });
       })
   };
 
-  useEffect(() => gamesAPIdata('http://localhost:8000'),[]);
-
-  const nextGame = () => dispatch({ type: NEXT_GAME, value: state.select });
-  const previousGame = () => dispatch({ type: PREVIOUS_GAME, value: state.select });
-  const menuToggle = () => dispatch({ type: TOGGLE_MENU, value: state.menu });
-  const searchToggle = () => dispatch({ type: TOGGLE_SEARCH, value: state.search })
+  const nextGame = () => {
+    dispatch({ 
+      type: INCREASE_RAWG_GAMES_DATA_INDEX, 
+      value: state.rawgGameDataIndex 
+    });
+  } 
   
+  const previousGame = () => {
+    dispatch({ 
+      type: DECREASE_RAWG_GAMES_DATA_INDEX, 
+      value: state.rawgGameDataIndex 
+    });
+  } 
+  
+  const menuToggle = () => 
+  dispatch({ type: TOGGLE_MENU, value: state.menu });
+   
+  const searchToggle = () =>
+  dispatch({ type: TOGGLE_SEARCH, value: state.search })   
+  
+  const setSearchData = (index) => {
+    dispatch({ type: SET_RAWG_GAMES_DATA, value: [state.searchFields[index]] });
+    dispatch({ type: SET_RAWG_GAMES_DATA_INDEX, value: 0 });
+    dispatch({ type: SET_CATEGORY_INDEX, value: null });
+    dispatch({ type: SET_NAVIGATION_ARROWS, value: [state.searchFields[index]] });
+  };
+
   //necessary for measuring resetting
   let timeout;
 
   const onSearchType = (e) => {
     const searchValue = e.target.value;
     clearTimeout(timeout)
-
 
     timeout = setTimeout(() => {
       const url = `http://localhost:8000/search/collection/${searchValue}`;
@@ -62,23 +84,29 @@ function App() {
     }, 1000)
   };
 
-  const setSearchData = (idx) => {
-    dispatch({ type: SET_GAME, value: [state.searchFields[idx]] })
-    dispatch({ type: SET_SELECT, value: 0 });
-    dispatch({ type: SET_CATEGORY_DATA, value: null })
-    dispatch({ type: SET_ARROWS, value: [state.searchFields[idx]] })
-  };
-
-  const gameHeader = (
-    <GameHeader games={state.game} nextGame={nextGame} previousGame={previousGame} select={state.select} arrows={state.arrows} />
+  //Decided to pass down these components instead of nesting unused props
+  const gameHeaderComponent = (
+    <GameHeader 
+      rawgGameData={state.rawgGameData} 
+      nextGame={nextGame} 
+      previousGame={previousGame} 
+      rawgGameDataIndex={state.rawgGameDataIndex} 
+      navigationArrows={state.navigationArrows} 
+    />
   );
 
-  const category = (
-    <Category category={state.category} gamesAPIdata={gamesAPIdata} />
+  const categoryComponent = (
+    <Category 
+      categoryIndex={state.categoryIndex} 
+      renderRawgApiData={renderRawgApiData} 
+    />
   );
 
-  const gameBody = (
-    <GameBody games={state.game} select={state.select} />
+  const gameBodyComponent = (
+    <GameBody 
+      rawgGameData={state.rawgGameData}
+      rawgGameDataIndex={state.rawgGameDataIndex} 
+    />
   );
 
   const menuOverlayClass = templateClassName(state.menu, 'menu-overlay', 'menu-overlay--visible');
@@ -90,13 +118,23 @@ function App() {
     <div className="App">
       <div className={searchOverlayClass} onClick={() => searchToggle()}/>
       <div className={menuOverlayClass} onClick={() => menuToggle()}/>
-      <Menu menuClass={menuClass}/>
-      <Search searchClass={searchClass} onSearchType={onSearchType} searchFields={state.searchFields} setSearchData={setSearchData}/>
-      <Navbar menuToggle={menuToggle} searchToggle={searchToggle}/>
+      <Menu 
+        menuClass={menuClass}
+      />
+      <Search 
+        onSearchType={onSearchType} 
+        searchClass={searchClass} 
+        searchFields={state.searchFields} 
+        setSearchData={setSearchData}
+      />
+      <Navbar 
+        menuToggle={menuToggle} 
+        searchToggle={searchToggle}
+      />
       <Content
-        gameHeader={gameHeader}
-        category={category}
-        gameBody={gameBody}
+        categoryComponent={categoryComponent}
+        gameBodyComponent={gameBodyComponent}
+        gameHeaderComponent={gameHeaderComponent}
       />
     </div>
   );
