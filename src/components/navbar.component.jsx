@@ -7,11 +7,11 @@ export default function Navbar({ menuToggle, searchToggle }) {
 
   return (
     <nav className='game-navbar'>
-      <div className='game-navbar__logo'>Title</div>
-      <div className='game-navbar__icons'>
+      <h4 className='game-navbar__logo'>Title</h4>
+      <menu className='game-navbar__icons'>
         <SearchIcon onClick={() => searchToggle()} />
         <MenuIcon onClick={() => menuToggle()}/>
-      </div>
+      </menu>
     </nav>
   );
 };

@@ -15,8 +15,8 @@ export default function Visualiser({ ratings }) {
   const pieClass = classNames('piechart-container__piechart', {
     'piechart-container__piechart--exceptional-selected' : ratingCategory === 0,
     'piechart-container__piechart--recommended-selected' : ratingCategory === 1,
-    'piechart-container__piechart--skip-selected' : ratingCategory === 2,
-    'piechart-container__piechart--meh-selected' : ratingCategory === 3
+    'piechart-container__piechart--meh-selected' : ratingCategory === 2,
+    'piechart-container__piechart--skip-selected' : ratingCategory === 3
   });
 
   if (ratings) {
@@ -25,8 +25,13 @@ export default function Visualiser({ ratings }) {
     allRatings = sortedRatings.map((rating, idx) => {
       data.push(Number(rating.percent.toFixed(0)));
       return (
-        <div key={`category-rating-container__${rating.title}`} className={`category-rating-container__${rating.title}`} onClick={() => setRatingCategory(idx)} tabIndex='0'>
-        </div>
+        <div 
+          key={`category-rating-container__${rating.title}`} 
+          className={`category-rating-container__${rating.title}`} 
+          onClick={() => setRatingCategory(idx)} 
+          tabIndex='0'
+          data-testid='category-rating'
+        />
       )
     });
 
@@ -35,7 +40,8 @@ export default function Visualiser({ ratings }) {
         [rating.percent, `${rating.title[0].toUpperCase()}${rating.title.slice(1, rating.title.length)}`]
       )
     })
-  }
+    console.log(ratingsData)
+  } 
   
   useEffect(() => {
     if (d3.select(".piechart-container__piechart")['_groups'][0] !== null) {
@@ -46,18 +52,19 @@ export default function Visualiser({ ratings }) {
       if (piechart.length) piechart[0].remove();
       d3test(data, ratingsData[ratingCategory]);
     }
+    console.log('test')
   })
 
   return (
     <div>
       <div className='piechart-container'>
-        <svg className={pieClass} width='300' height='200'></svg>
+        <svg className={pieClass} data-testid='pie' width='300' height='200'></svg>
       </div>
       
       {ratings && (
-        <div className='category-rating-container'>
+        <datalist className='category-rating-container'>
           {allRatings}
-        </div>
+        </datalist>
       )}
     </div>
   );

@@ -69,8 +69,8 @@ function App() {
   //necessary for measuring resetting
   let timeout;
 
-  const onSearchType = (e) => {
-    const searchValue = e.target.value;
+  const onSearchType = (event) => {
+    const searchValue = event.target.value;
     clearTimeout(timeout)
 
     timeout = setTimeout(() => {
@@ -87,7 +87,7 @@ function App() {
   //Decided to pass down these components instead of nesting unused props
   const gameHeaderComponent = (
     <GameHeader 
-      rawgGameData={state.rawgGameData} 
+      rawgGameData={state.rawgGameData}
       nextGame={nextGame} 
       previousGame={previousGame} 
       rawgGameDataIndex={state.rawgGameDataIndex} 
@@ -116,8 +116,8 @@ function App() {
 
   return (
     <div className="App">
-      <div className={searchOverlayClass} onClick={() => searchToggle()}/>
-      <div className={menuOverlayClass} onClick={() => menuToggle()}/>
+      <section className={searchOverlayClass} onClick={() => searchToggle()}/>
+      <section className={menuOverlayClass} onClick={() => menuToggle()}/>
       <Menu 
         menuClass={menuClass}
       />

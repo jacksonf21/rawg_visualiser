@@ -31,4 +31,5 @@ const checkGameRatingFields = (game) => {
   return ratings;
 };
 
+
 module.exports = { templateClassName, checkGameRatingFields }
