@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import { FirebaseContext } from './components/Firebase';
 import Axios from 'axios';
 import Content from './components/Content.component';
 import Navbar from './components/navbar.component';
@@ -118,9 +119,9 @@ function App() {
     <div className="App">
       <section className={searchOverlayClass} onClick={() => searchToggle()}/>
       <section className={menuOverlayClass} onClick={() => menuToggle()}/>
-      <Menu 
-        menuClass={menuClass}
-      />
+      <FirebaseContext.Consumer>
+        {firebase => <Menu firebase={firebase} menuClass={menuClass} />}
+      </FirebaseContext.Consumer>
       <Search 
         onSearchType={onSearchType} 
         searchClass={searchClass} 
