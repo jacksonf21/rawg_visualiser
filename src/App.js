@@ -1,11 +1,11 @@
 import React, { useEffect, useReducer } from 'react';
-import { FirebaseContext } from './components/Firebase';
+import Firebase, { FirebaseContext } from './components/Firebase';
 import Axios from 'axios';
 import Content from './components/Content.component';
 import Navbar from './components/Navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP } from './helper/reducer'
+import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP, TOGGLE_SIGN_IN } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -15,6 +15,7 @@ import { templateClassName } from './helper/customClassnames';
 import Menu from './components/Menu.component';
 import Search from './components/Search.component';
 import SignUp from './components/SignUp.component';
+import SignIn from './components/SignIn.component';
 
 function App() {
 
@@ -26,6 +27,8 @@ function App() {
     menu: 0,
     search: 0,
     signUp: 0,
+    signIn: 0,
+    signedIn: false,
     navigationArrows: null,
     searchFields: []
   });
@@ -65,6 +68,9 @@ function App() {
   const signUpToggle = () => 
   dispatch({ type: TOGGLE_SIGN_UP, value: state.signUp});
 
+  const signInToggle = () => 
+  dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn});
+
   const setSearchData = (index) => {
     dispatch({ type: SET_RAWG_GAMES_DATA, value: [state.searchFields[index]] });
     dispatch({ type: SET_RAWG_GAMES_DATA_INDEX, value: 0 });
@@ -77,8 +83,8 @@ function App() {
 
   const onSearchType = (event) => {
     
-    clearTimeout(timeout)
     const searchValue = event.target.value;
+    clearTimeout(timeout)
   
     timeout = setTimeout(() => {
       const url = `http://localhost:8000/search/collection/${searchValue}`;
@@ -125,7 +131,17 @@ function App() {
     <div className="App">
       <section className={searchOverlayClass} onClick={() => searchToggle()}/>
       <section className={menuOverlayClass} onClick={() => menuToggle()}/>
-      <Menu menuClass={menuClass} signUpToggle={signUpToggle} menuToggle={menuToggle}/>
+      <FirebaseContext.Consumer>
+        {firebase => 
+          <Menu 
+            firebase={firebase} 
+            menuClass={menuClass} 
+            signUpToggle={signUpToggle} 
+            menuToggle={menuToggle} 
+            signInToggle={signInToggle} 
+          />
+        }
+      </FirebaseContext.Consumer>
       <Search 
         onSearchType={onSearchType} 
         searchClass={searchClass} 
@@ -133,7 +149,7 @@ function App() {
         setSearchData={setSearchData}
       />
       <Navbar 
-        menuToggle={menuToggle} 
+        menuToggle={menuToggle}
         searchToggle={searchToggle}
       />
       <Content
@@ -144,6 +160,11 @@ function App() {
       {state.signUp && (
         <FirebaseContext.Consumer>
           {firebase => <SignUp firebase={firebase} signUpToggle={signUpToggle}/>}
+        </FirebaseContext.Consumer>
+      )}
+      {state.signIn && (
+        <FirebaseContext.Consumer>
+          {firebase => <SignIn firebase={firebase} signInToggle={signInToggle}/>}
         </FirebaseContext.Consumer>
       )}
     </div>
