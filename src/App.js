@@ -5,7 +5,7 @@ import Content from './components/Content.component';
 import Navbar from './components/Navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS } from './helper/reducer'
+import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -14,6 +14,7 @@ import GameBody from './components/GameBody.component';
 import { templateClassName } from './helper/customClassnames';
 import Menu from './components/Menu.component';
 import Search from './components/Search.component';
+import SignUp from './components/SignUp.component';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
     categoryIndex: null,
     menu: 0,
     search: 0,
+    signUp: 0,
     navigationArrows: null,
     searchFields: []
   });
@@ -58,8 +60,11 @@ function App() {
   dispatch({ type: TOGGLE_MENU, value: state.menu });
    
   const searchToggle = () =>
-  dispatch({ type: TOGGLE_SEARCH, value: state.search })   
+  dispatch({ type: TOGGLE_SEARCH, value: state.search });   
   
+  const signUpToggle = () => 
+  dispatch({ type: TOGGLE_SIGN_UP, value: state.signUp});
+
   const setSearchData = (index) => {
     dispatch({ type: SET_RAWG_GAMES_DATA, value: [state.searchFields[index]] });
     dispatch({ type: SET_RAWG_GAMES_DATA_INDEX, value: 0 });
@@ -120,9 +125,7 @@ function App() {
     <div className="App">
       <section className={searchOverlayClass} onClick={() => searchToggle()}/>
       <section className={menuOverlayClass} onClick={() => menuToggle()}/>
-      <FirebaseContext.Consumer>
-        {firebase => <Menu firebase={firebase} menuClass={menuClass} />}
-      </FirebaseContext.Consumer>
+      <Menu menuClass={menuClass} signUpToggle={signUpToggle} menuToggle={menuToggle}/>
       <Search 
         onSearchType={onSearchType} 
         searchClass={searchClass} 
@@ -138,6 +141,11 @@ function App() {
         gameBodyComponent={gameBodyComponent}
         gameHeaderComponent={gameHeaderComponent}
       />
+      {state.signUp && (
+        <FirebaseContext.Consumer>
+          {firebase => <SignUp firebase={firebase} signUpToggle={signUpToggle}/>}
+        </FirebaseContext.Consumer>
+      )}
     </div>
   );
 }
