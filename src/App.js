@@ -28,7 +28,6 @@ function App() {
     search: 0,
     signUp: 0,
     signIn: 0,
-    signedIn: false,
     navigationArrows: null,
     searchFields: []
   });
@@ -157,12 +156,12 @@ function App() {
         gameBodyComponent={gameBodyComponent}
         gameHeaderComponent={gameHeaderComponent}
       />
-      {state.signUp && (
+      {state.signUp === 1 && (
         <FirebaseContext.Consumer>
           {firebase => <SignUp firebase={firebase} signUpToggle={signUpToggle}/>}
         </FirebaseContext.Consumer>
       )}
-      {state.signIn && (
+      {state.signIn === 1 && (
         <FirebaseContext.Consumer>
           {firebase => <SignIn firebase={firebase} signInToggle={signInToggle}/>}
         </FirebaseContext.Consumer>
