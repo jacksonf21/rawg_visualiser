@@ -1,10 +1,4 @@
-const classNames = require('classnames');
-
-const templateClassName = (state, typical, iftrue) => {
-  return classNames(typical, {
-    [iftrue] : state === 1
-  })
-};
+const d3 = require('d3');
 
 const checkGameRatingFields = (game) => {
   const ratings = game.ratings;
@@ -31,5 +25,8 @@ const checkGameRatingFields = (game) => {
   return ratings;
 };
 
+const pieClassCheck = () => {
+  return d3.select(".piechart-container__piechart")['_groups'][0] !== null
+}
 
-module.exports = { templateClassName, checkGameRatingFields }
+module.exports = { checkGameRatingFields, pieClassCheck }

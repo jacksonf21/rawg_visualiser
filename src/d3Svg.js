@@ -1,6 +1,6 @@
 const d3 = require('d3');
 
-const d3test = (data, text) => {
+const d3Svg = (data, text) => {
   const svg = d3.select(".piechart-container__piechart"),
       width = svg.attr("width"),
       height = svg.attr("height"),
@@ -45,4 +45,4 @@ const d3test = (data, text) => {
       .attr("d", arc);
 }; 
 
-module.exports = { d3test };
+module.exports = { d3Svg };

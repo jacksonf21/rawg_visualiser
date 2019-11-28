@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import * as d3 from 'd3';
 import '../stylesheets/visualiser.css';
 
-const { d3test } = require('../d3test');
-const classNames = require('classnames');
+const { d3Svg } = require('../d3Svg');
+const { pieClassCheck } = require('../helper/customClassnames');
 
 export default function Visualiser({ ratings }) {
   const [ratingCategory, setRatingCategory] = useState(0);
@@ -12,12 +11,7 @@ export default function Visualiser({ ratings }) {
   let ratingsData = 0;
   const data = [];
 
-  const pieClass = classNames('piechart-container__piechart', {
-    'piechart-container__piechart--exceptional-selected' : ratingCategory === 0,
-    'piechart-container__piechart--recommended-selected' : ratingCategory === 1,
-    'piechart-container__piechart--meh-selected' : ratingCategory === 2,
-    'piechart-container__piechart--skip-selected' : ratingCategory === 3
-  });
+  const pieClass = pieClassCheck(ratingCategory);
 
   if (ratings) {
     const sortedRatings = ratings.sort((b, a) => (b.id > a.id) ? -1 : 1);
@@ -40,17 +34,16 @@ export default function Visualiser({ ratings }) {
         [rating.percent, `${rating.title[0].toUpperCase()}${rating.title.slice(1, rating.title.length)}`]
       )
     })
-    console.log(ratingsData)
   } 
   
   useEffect(() => {
-    if (d3.select(".piechart-container__piechart")['_groups'][0] !== null) {
+    if (pieClassCheck()) {
       const svg = document.getElementsByClassName('piechart-container__piechart')[0];
       const piechart = svg.getElementsByTagName('g');
 
       //CHOSE TO DELETE ANY EXISTING PIECHART ON EACH NEW RENDER
       if (piechart.length) piechart[0].remove();
-      d3test(data, ratingsData[ratingCategory]);
+      d3Svg(data, ratingsData[ratingCategory]);
     }
     console.log('test')
   })

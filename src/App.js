@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { FirebaseContext } from './components/Firebase';
 import Axios from 'axios';
 import Content from './components/Content.component';
-import Navbar from './components/navbar.component';
+import Navbar from './components/Navbar.component';
 import './stylesheets/app.css';
 
 import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS } from './helper/reducer'
@@ -11,7 +11,7 @@ import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
 import GameBody from './components/GameBody.component';
 
-import { templateClassName } from './helper/helper';
+import { templateClassName } from './helper/customClassnames';
 import Menu from './components/Menu.component';
 import Search from './components/Search.component';
 
@@ -28,7 +28,7 @@ function App() {
     searchFields: []
   });
 
-  useEffect(() => renderRawgApiData('http://localhost:8000'),[]);
+  useEffect(() => renderRawgApiData('http://localhost:8000'), []);
 
   const renderRawgApiData = (url) => {
     Axios.get(url)
@@ -71,9 +71,10 @@ function App() {
   let timeout;
 
   const onSearchType = (event) => {
-    const searchValue = event.target.value;
+    
     clearTimeout(timeout)
-
+    const searchValue = event.target.value;
+  
     timeout = setTimeout(() => {
       const url = `http://localhost:8000/search/collection/${searchValue}`;
       
