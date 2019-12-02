@@ -15,6 +15,11 @@ export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, 
     signInToggle()
   };
 
+  const signOut = () => {
+    firebase.signOut()
+    menuToggle()
+  }
+
   return (
     <aside className={menuClass}>
       <div className='login-container'>
@@ -26,7 +31,7 @@ export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, 
         ) : (
           <>
             <h4>Watchlists</h4>
-            <h4 onClick={() => firebase.signOut()}>Sign Out</h4>
+            <h4 onClick={() => signOut()}>Sign Out</h4>
           </>
         )}
       </div>

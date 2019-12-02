@@ -24,10 +24,10 @@
 .piechart-container .piechart-container__piechart--recommended-selected .arc1 {
   transform: scale(1.07);
 }
-.piechart-container .piechart-container__piechart--skip-selected .arc2 {
+.piechart-container .piechart-container__piechart--meh-selected .arc2 {
   transform: scale(1.07);
 }
-.piechart-container .piechart-container__piechart--meh-selected .arc3 {
+.piechart-container .piechart-container__piechart--skip-selected .arc3 {
   transform: scale(1.07);
 }
 

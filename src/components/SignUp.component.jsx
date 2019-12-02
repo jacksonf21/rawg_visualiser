@@ -20,7 +20,10 @@ export default function SignUp({ firebase, signUpToggle }) {
 
     if (password.length > 5) {
       firebase.signUp(email, password)
-        .then(user => signUpDetails())
+        .then(user => {
+          signUpDetails()
+          signUpToggle()
+        })
         .catch(error => setAlert(1))
     }
 
