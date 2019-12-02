@@ -5,7 +5,7 @@ import Content from './components/Content.component';
 import Navbar from './components/Navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP, TOGGLE_SIGN_IN } from './helper/reducer'
+import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP, TOGGLE_SIGN_IN, TOGGLE_WATCHLISTS } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -28,6 +28,7 @@ function App() {
     search: 0,
     signUp: 0,
     signIn: 0,
+    watchlist: 0,
     navigationArrows: null,
     searchFields: []
   });
@@ -65,10 +66,13 @@ function App() {
   dispatch({ type: TOGGLE_SEARCH, value: state.search });   
   
   const signUpToggle = () => 
-  dispatch({ type: TOGGLE_SIGN_UP, value: state.signUp});
+  dispatch({ type: TOGGLE_SIGN_UP, value: state.signUp });
 
   const signInToggle = () => 
-  dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn});
+  dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn });
+
+  const watchlistToggle = () => 
+  dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist });
 
   const setSearchData = (index) => {
     dispatch({ type: SET_RAWG_GAMES_DATA, value: [state.searchFields[index]] });
@@ -121,15 +125,18 @@ function App() {
     />
   );
 
-  const menuOverlayClass = templateClassName(state.menu, 'menu-overlay', 'menu-overlay--visible');
-  const menuClass = templateClassName(state.menu, 'menu', 'menu--visible');
-  const searchClass = templateClassName(state.search, 'search', 'search--visible');
-  const searchOverlayClass = templateClassName(state.search, 'search-overlay', 'search-overlay--visible');
+  const menuOverlayClass = templateClassName(state.menu, 'overlay-hidden', 'menu-overlay--visible');
+  const menuClass = templateClassName(state.menu, 'overlay-hidden', 'overlay-visible overlay-visible--menu');
+  const searchClass = templateClassName(state.search, 'overlay-hidden', 'overlay-visible overlay-visible--search');
+  const watchlistClass = templateClassName(state.watchlist, 'overlay-hidden', 'overlay-visible overlay-visible--watchlist');
+
+  const searchOverlayClass = templateClassName(state.search, 'overlay-hidden', 'search-overlay--visible');
 
   return (
     <div className="App">
       <section className={searchOverlayClass} onClick={() => searchToggle()}/>
       <section className={menuOverlayClass} onClick={() => menuToggle()}/>
+      <section className={watchlistClass} onClick={() => watchlistToggle()}/>
       <FirebaseContext.Consumer>
         {firebase => 
           <Menu 

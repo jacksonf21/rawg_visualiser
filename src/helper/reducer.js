@@ -9,6 +9,7 @@ export const SET_NAVIGATION_ARROWS = 'SET_NAVIGATION_ARROWS';
 export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
 export const TOGGLE_SIGN_UP = 'TOGGLE_SIGN_UP';
 export const TOGGLE_SIGN_IN = 'TOGGLE_SIGN_IN';
+export const TOGGLE_WATCHLISTS = 'TOGGLE_WATCHLISTS';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -67,6 +68,10 @@ export default function reducer(state, action) {
     case TOGGLE_SIGN_IN:
       if (action.value === 0) return { ...state, signIn: 1 }
       else return { ...state, signIn: 0 }
+
+    case TOGGLE_WATCHLISTS:
+      if (action.value === 0) return { ...state, watchlist: 1 }
+      else return { ...state, watchlist: 0 }
 
     case SET_NAVIGATION_ARROWS:
       if (action.value === 1) return { ...state, navigationArrows: 0 }

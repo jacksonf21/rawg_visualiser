@@ -17,7 +17,9 @@ export default function SignIn({ firebase, signInToggle }) {
     const email = document.getElementsByClassName('email')[0].value;
     const password = document.getElementsByClassName('password')[0].value;
 
-    firebase.signIn(email, password).catch(err => setAlert(1))
+    firebase.signIn(email, password)
+      .then(user => signInToggle())
+      .catch(error => setAlert(1))
   };
   
   return (

@@ -3,12 +3,7 @@ body {
   max-width: 100vw;
 }
 
-.menu-overlay, .search-overlay {
-  position: absolute;
-  z-index: -5;
-}
-
-.menu, .search {
+.overlay-hidden {
   position: absolute;
   z-index: -5;
 }
@@ -23,22 +18,29 @@ body {
   min-width: 100vw;
 }
 
-.menu--visible {
+.overlay-visible {
   position: fixed;
-  min-height: 100vh;
-  min-width: 40vw;
   right: 0;
   z-index: 26;
   background-color: white;
 }
 
-.search--visible {
-  position: fixed;
+.overlay-visible--menu {
+  min-height: 100vh;
+  min-width: 40vw;
+  right: 0;
+}
+
+.overlay-visible--search {
   min-height: 30vh;
   min-width: 100vw;
   top: 0;
-  z-index: 26;
-  background-color: white;
+}
+
+.overlay-visible--watchlist {
+  min-height: 100vh;
+  min-width: 100vw;
+  top: 0;
 }
 
 /*# sourceMappingURL=app.css.map */

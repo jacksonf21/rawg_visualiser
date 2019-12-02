@@ -20,6 +20,10 @@ export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, 
     menuToggle()
   }
 
+  const watchlists = () => {
+    
+  }
+
   return (
     <aside className={menuClass}>
       <div className='login-container'>
