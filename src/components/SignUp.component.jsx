@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import '../stylesheets/signup.css';
 import CloseIcon from '@material-ui/icons/Close';
+import signUpDetails from '../helper/signup'
 
 export default function SignUp({ firebase, signUpToggle }) {
-  
+
   const [alert, setAlert] = useState(0);
 
   const resetSignUpStates = () => {
@@ -19,6 +20,7 @@ export default function SignUp({ firebase, signUpToggle }) {
 
     if (password.length > 5) {
       firebase.signUp(email, password)
+        .then(user => signUpDetails())
         .catch(error => setAlert(1))
     }
 
