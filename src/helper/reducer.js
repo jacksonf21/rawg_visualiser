@@ -11,6 +11,7 @@ export const TOGGLE_SIGN_UP = 'TOGGLE_SIGN_UP';
 export const TOGGLE_SIGN_IN = 'TOGGLE_SIGN_IN';
 export const TOGGLE_WATCHLISTS = 'TOGGLE_WATCHLISTS';
 export const SET_WATCHLIST_DATA = 'SET_WATCHLIST_DATA';
+export const TOGGLE_ADD_WATCHLIST = 'TOGGLE_ADD_WATCHLIST';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -74,6 +75,10 @@ export default function reducer(state, action) {
       if (action.value === 0) return { ...state, watchlist: 1 }
       else return { ...state, watchlist: 0 }
 
+    case TOGGLE_ADD_WATCHLIST:
+      if (action.value === 0) return { ...state, addWatchlist: 1 }
+      else return { ...state, addWatchlist: 0 }
+
     case SET_NAVIGATION_ARROWS:
       if (action.value === 1) return { ...state, navigationArrows: 0 }
       else return { ...state, navigationArrows: 1 }
@@ -87,7 +92,7 @@ export default function reducer(state, action) {
       return {
         ...state, watchlistData: action.value
       }
-      
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`

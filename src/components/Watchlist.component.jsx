@@ -3,30 +3,25 @@ import CloseIcon from '@material-ui/icons/Close';
 
 export default function Watchlist({ menuToggle, watchlistClass, watchlistToggle, watchlistData }) {
 
+  
+
   const watchlistReset = () => {
     watchlistToggle()
     menuToggle()
-  }
+  };
 
   const watchlists = watchlistData.map(watchlist => {
-    return (
-      <div>
-        {watchlist}
-      </div>
-    )
-  })
+    return (<div>{watchlist}</div>)
+  });
 
   return (
     <section className={watchlistClass}>
       <CloseIcon onClick={() => watchlistReset()}/>
+      
       {watchlistData.length !== 0 ? (
-        <>
-        {watchlists}
-        </>
+        <>{watchlists}</>
       ) : (
-        <div>
-          No Watchlists Found!
-        </div>
+        <div>No Watchlists Found!</div>
       )}
     </section>
   )

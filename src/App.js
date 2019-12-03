@@ -5,7 +5,7 @@ import Content from './components/Content.component';
 import Navbar from './components/Navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP, TOGGLE_SIGN_IN, TOGGLE_WATCHLISTS, SET_WATCHLIST_DATA } from './helper/reducer'
+import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP, TOGGLE_SIGN_IN, TOGGLE_WATCHLISTS, SET_WATCHLIST_DATA, TOGGLE_ADD_WATCHLIST } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -17,9 +17,7 @@ import Search from './components/Search.component';
 import SignUp from './components/SignUp.component';
 import SignIn from './components/SignIn.component';
 import Watchlist from './components/Watchlist.component';
-
-// const firebase = require('firebase/app');
-// require("firebase/auth");
+import AddWatchlist from './components/AddWatchlist.component';
 
 function App({ firebase }) {
 
@@ -33,6 +31,7 @@ function App({ firebase }) {
     signUp: 0,
     signIn: 0,
     watchlist: 0,
+    addWatchlist: 0,
     navigationArrows: null,
     searchFields: [],
     watchlistData: []
@@ -89,6 +88,10 @@ function App({ firebase }) {
     dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist });
   }
 
+  const addWatchlistToggle = () => {
+    dispatch({ type: TOGGLE_ADD_WATCHLIST, value: state.addWatchlist })
+  }
+
   const setSearchData = (index) => {
     dispatch({ type: SET_RAWG_GAMES_DATA, value: [state.searchFields[index]] });
     dispatch({ type: SET_RAWG_GAMES_DATA_INDEX, value: 0 });
@@ -134,23 +137,28 @@ function App({ firebase }) {
   );
 
   const gameBodyComponent = (
-    <GameBody 
+    <GameBody
+      addWatchlistToggle={addWatchlistToggle} 
       rawgGameData={state.rawgGameData}
       rawgGameDataIndex={state.rawgGameDataIndex} 
     />
   );
 
-  const menuOverlayClass = templateClassName(state.menu, 'overlay-hidden', 'menu-overlay--visible');
   const menuClass = templateClassName(state.menu, 'overlay-hidden', 'overlay-visible overlay-visible--menu');
   const searchClass = templateClassName(state.search, 'overlay-hidden', 'overlay-visible overlay-visible--search');
   const watchlistClass = templateClassName(state.watchlist, 'overlay-hidden', 'overlay-visible overlay-visible--watchlist');
-
+  const addWatchlistClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'overlay-visible overlay-visible--addWatchlist');
+  
+  const menuOverlayClass = templateClassName(state.menu, 'overlay-hidden', 'menu-overlay--visible');
   const searchOverlayClass = templateClassName(state.search, 'overlay-hidden', 'search-overlay--visible');
+  const addWatchlistOverlayClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'menu-overlay--visible');
+
 
   return (
     <div className="App">
       <section className={searchOverlayClass} onClick={() => searchToggle()}/>
       <section className={menuOverlayClass} onClick={() => menuToggle()}/>
+      <section className={addWatchlistOverlayClass} onClick={() => addWatchlistToggle()}/>
       <FirebaseContext.Consumer>
         {firebase => 
           <>
@@ -182,6 +190,11 @@ function App({ firebase }) {
         menuToggle={menuToggle}
         watchlistClass={watchlistClass}
         watchlistToggle={watchlistToggle}
+        watchlistData={state.watchlistData}
+      />
+      <AddWatchlist
+        addWatchlistClass={addWatchlistClass}
+        addWatchlistToggle={addWatchlistToggle}
         watchlistData={state.watchlistData}
       />
       <Navbar 
