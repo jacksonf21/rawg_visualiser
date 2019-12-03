@@ -153,6 +153,7 @@ function App({ firebase }) {
       <section className={menuOverlayClass} onClick={() => menuToggle()}/>
       <FirebaseContext.Consumer>
         {firebase => 
+          <>
           <Menu 
             firebase={firebase} 
             menuClass={menuClass} 
@@ -162,6 +163,13 @@ function App({ firebase }) {
             renderWatchlists={renderWatchlists}
             watchlistToggle={watchlistToggle}
           />
+          {state.signUp === 1 && (
+            <SignUp firebase={firebase} signUpToggle={signUpToggle}/>
+          )}
+          {state.signIn === 1 && (
+            <SignIn firebase={firebase} signInToggle={signInToggle}/>
+          )}
+          </>
         }
       </FirebaseContext.Consumer>
       <Search 
@@ -170,17 +178,12 @@ function App({ firebase }) {
         searchFields={state.searchFields} 
         setSearchData={setSearchData}
       />
-      <FirebaseContext.Consumer>
-        {firebase =>
-          <Watchlist
-            firebase={firebase}
-            menuToggle={menuToggle}
-            watchlistClass={watchlistClass}
-            watchlistToggle={watchlistToggle}
-            watchlistData={state.watchlistData}
-          />
-        }
-      </FirebaseContext.Consumer>
+      <Watchlist
+        menuToggle={menuToggle}
+        watchlistClass={watchlistClass}
+        watchlistToggle={watchlistToggle}
+        watchlistData={state.watchlistData}
+      />
       <Navbar 
         menuToggle={menuToggle}
         searchToggle={searchToggle}
@@ -190,16 +193,6 @@ function App({ firebase }) {
         gameBodyComponent={gameBodyComponent}
         gameHeaderComponent={gameHeaderComponent}
       />
-      {state.signUp === 1 && (
-        <FirebaseContext.Consumer>
-          {firebase => <SignUp firebase={firebase} signUpToggle={signUpToggle}/>}
-        </FirebaseContext.Consumer>
-      )}
-      {state.signIn === 1 && (
-        <FirebaseContext.Consumer>
-          {firebase => <SignIn firebase={firebase} signInToggle={signInToggle}/>}
-        </FirebaseContext.Consumer>
-      )}
     </div>
   );
 }

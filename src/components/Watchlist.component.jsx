@@ -1,7 +1,7 @@
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 
-export default function Watchlist({ menuToggle, firebase, watchlistClass, watchlistToggle, watchlistData }) {
+export default function Watchlist({ menuToggle, watchlistClass, watchlistToggle, watchlistData }) {
 
   const watchlistReset = () => {
     watchlistToggle()

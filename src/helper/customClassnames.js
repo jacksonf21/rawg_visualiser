@@ -6,6 +6,12 @@ const templateClassName = (state, typical, iftrue) => {
   })
 };
 
+const watchlistClassCheck = () => {
+  return classNames('', {
+    '': 
+  })
+};
+
 const pieClassCheck = (ratingCategory) => {
   return classNames('piechart-container__piechart', {
     'piechart-container__piechart--exceptional-selected' : ratingCategory === 0,
