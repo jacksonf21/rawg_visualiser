@@ -1,7 +1,7 @@
 import React from 'react';
 import '../stylesheets/menu.css';
 
-export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, menuToggle }) {
+export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, menuToggle, watchlistToggle, renderWatchlists }) {
 
   const signedIn = firebase.auth.currentUser; 
 
@@ -20,8 +20,9 @@ export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, 
     menuToggle()
   }
 
-  const watchlists = () => {
-    
+  const accessWatchlists = () => {
+    watchlistToggle()
+    renderWatchlists('http://localhost:8000/watchlists')
   }
 
   return (
@@ -34,7 +35,7 @@ export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, 
           </>
         ) : (
           <>
-            <h4>Watchlists</h4>
+            <h4 onClick={() => accessWatchlists()}>Watchlists</h4>
             <h4 onClick={() => signOut()}>Sign Out</h4>
           </>
         )}

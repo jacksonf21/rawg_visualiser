@@ -1,11 +1,11 @@
 import React, { useEffect, useReducer } from 'react';
-import Firebase, { FirebaseContext } from './components/Firebase';
+import { FirebaseContext } from './components/Firebase';
 import Axios from 'axios';
 import Content from './components/Content.component';
 import Navbar from './components/Navbar.component';
 import './stylesheets/app.css';
 
-import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP, TOGGLE_SIGN_IN, TOGGLE_WATCHLISTS } from './helper/reducer'
+import reducer, { INCREASE_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA_INDEX, SET_RAWG_GAMES_DATA, DECREASE_RAWG_GAMES_DATA_INDEX, SET_CATEGORY_INDEX, TOGGLE_MENU, TOGGLE_SEARCH, SET_NAVIGATION_ARROWS, SET_SEARCH_FIELDS, TOGGLE_SIGN_UP, TOGGLE_SIGN_IN, TOGGLE_WATCHLISTS, SET_WATCHLIST_DATA } from './helper/reducer'
 
 import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
@@ -16,8 +16,12 @@ import Menu from './components/Menu.component';
 import Search from './components/Search.component';
 import SignUp from './components/SignUp.component';
 import SignIn from './components/SignIn.component';
+import Watchlist from './components/Watchlist.component';
 
-function App() {
+// const firebase = require('firebase/app');
+// require("firebase/auth");
+
+function App({ firebase }) {
 
   //rawg is the 3rd party API
   const [state, dispatch] = useReducer(reducer, {
@@ -30,7 +34,8 @@ function App() {
     signIn: 0,
     watchlist: 0,
     navigationArrows: null,
-    searchFields: []
+    searchFields: [],
+    watchlistData: []
   });
 
   useEffect(() => renderRawgApiData('http://localhost:8000'), []);
@@ -44,6 +49,15 @@ function App() {
         dispatch({ type: SET_NAVIGATION_ARROWS, value: res.data.length });
       })
   };
+
+  const renderWatchlists = (url) => {
+    const id = firebase.uId();
+    Axios.get(`${url}\\${id}`)
+      .then(res => {
+        dispatch({ type: SET_WATCHLIST_DATA, value: res.data })
+      })
+      .catch(error => console.log(error))
+  }
 
   const nextGame = () => {
     dispatch({ 
@@ -71,8 +85,9 @@ function App() {
   const signInToggle = () => 
   dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn });
 
-  const watchlistToggle = () => 
-  dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist });
+  const watchlistToggle = () => {
+    dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist });
+  }
 
   const setSearchData = (index) => {
     dispatch({ type: SET_RAWG_GAMES_DATA, value: [state.searchFields[index]] });
@@ -136,15 +151,16 @@ function App() {
     <div className="App">
       <section className={searchOverlayClass} onClick={() => searchToggle()}/>
       <section className={menuOverlayClass} onClick={() => menuToggle()}/>
-      <section className={watchlistClass} onClick={() => watchlistToggle()}/>
       <FirebaseContext.Consumer>
         {firebase => 
           <Menu 
             firebase={firebase} 
             menuClass={menuClass} 
-            signUpToggle={signUpToggle} 
             menuToggle={menuToggle} 
-            signInToggle={signInToggle} 
+            signUpToggle={signUpToggle} 
+            signInToggle={signInToggle}
+            renderWatchlists={renderWatchlists}
+            watchlistToggle={watchlistToggle}
           />
         }
       </FirebaseContext.Consumer>
@@ -154,6 +170,17 @@ function App() {
         searchFields={state.searchFields} 
         setSearchData={setSearchData}
       />
+      <FirebaseContext.Consumer>
+        {firebase =>
+          <Watchlist
+            firebase={firebase}
+            menuToggle={menuToggle}
+            watchlistClass={watchlistClass}
+            watchlistToggle={watchlistToggle}
+            watchlistData={state.watchlistData}
+          />
+        }
+      </FirebaseContext.Consumer>
       <Navbar 
         menuToggle={menuToggle}
         searchToggle={searchToggle}

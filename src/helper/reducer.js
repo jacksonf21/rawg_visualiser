@@ -10,6 +10,7 @@ export const SET_SEARCH_FIELDS = 'SET_SEARCH_FIELDS';
 export const TOGGLE_SIGN_UP = 'TOGGLE_SIGN_UP';
 export const TOGGLE_SIGN_IN = 'TOGGLE_SIGN_IN';
 export const TOGGLE_WATCHLISTS = 'TOGGLE_WATCHLISTS';
+export const SET_WATCHLIST_DATA = 'SET_WATCHLIST_DATA';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -80,6 +81,11 @@ export default function reducer(state, action) {
     case SET_SEARCH_FIELDS:
       return {
         ...state, searchFields: action.value
+      }
+    
+    case SET_WATCHLIST_DATA:
+      return {
+        ...state, watchlistData: action.value
       }
       
     default:
