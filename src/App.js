@@ -53,6 +53,7 @@ function App({ firebase }) {
     const id = firebase.uId();
     Axios.get(`${url}\\${id}`)
       .then(res => {
+        console.log(res.data)
         dispatch({ type: SET_WATCHLIST_DATA, value: res.data })
       })
       .catch(error => console.log(error))
@@ -186,17 +187,21 @@ function App({ firebase }) {
         searchFields={state.searchFields} 
         setSearchData={setSearchData}
       />
-      <Watchlist
-        menuToggle={menuToggle}
-        watchlistClass={watchlistClass}
-        watchlistToggle={watchlistToggle}
-        watchlistData={state.watchlistData}
-      />
-      <AddWatchlist
-        addWatchlistClass={addWatchlistClass}
-        addWatchlistToggle={addWatchlistToggle}
-        watchlistData={state.watchlistData}
-      />
+      {state.watchlist !== 0 && (
+        <Watchlist
+          menuToggle={menuToggle}
+          watchlistClass={watchlistClass}
+          watchlistToggle={watchlistToggle}
+          watchlistData={state.watchlistData}
+        />
+      )}
+      {state.addWatchlist !== 0 && (
+        <AddWatchlist
+          addWatchlistClass={addWatchlistClass}
+          addWatchlistToggle={addWatchlistToggle}
+          watchlistData={state.watchlistData}
+        />
+      )}
       <Navbar 
         menuToggle={menuToggle}
         searchToggle={searchToggle}

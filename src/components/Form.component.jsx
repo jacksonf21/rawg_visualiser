@@ -6,6 +6,8 @@ export default function Form({ firebase }) {
   const createWatchlist = () => {
     const userId = firebase.uId();
     const watchlistName = document.getElementsByClassName('watchlist-name')[0].value;
+    console.log(watchlistName)
+
     Axios.post(`http://localhost:8000/watchlists/${userId}`, {watchlistName: watchlistName})
   }
   

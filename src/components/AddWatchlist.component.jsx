@@ -6,7 +6,7 @@ import { FirebaseContext } from './Firebase';
 export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, watchlistData }) {
 
   const watchlists = watchlistData.map(watchlist => {
-    return (<div>{watchlist}</div>)
+    return (<div>{watchlist.name}</div>)
   });
 
   return (
