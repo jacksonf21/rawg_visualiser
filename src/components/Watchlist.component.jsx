@@ -8,6 +8,8 @@ export default function Watchlist({ menuToggle, watchlistClass, watchlistToggle,
     menuToggle()
   };
 
+  console.log(watchlistData)
+
   const watchlists = watchlistData.map(watchlist => {
     return (<div>{watchlist.name}</div>)
   });
