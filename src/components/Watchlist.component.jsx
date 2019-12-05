@@ -1,17 +1,19 @@
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 
-export default function Watchlist({ menuToggle, watchlistClass, watchlistToggle, watchlistData }) {
+export default function Watchlist({ menuToggle, selectWatchlist, watchlistClass, watchlistToggle, watchlistData }) {
 
   const watchlistReset = () => {
     watchlistToggle()
     menuToggle()
   };
 
-  console.log(watchlistData)
+  const watchlistIds = watchlistData.map(watchlist => {
+    return watchlist.id;
+  })
 
-  const watchlists = watchlistData.map(watchlist => {
-    return (<div>{watchlist.name}</div>)
+  const watchlists = watchlistData.map((watchlist, index) => {
+    return (<div onClick={() => selectWatchlist(watchlistIds[index])}>{watchlist.name}</div>)
   });
 
   return (

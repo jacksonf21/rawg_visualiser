@@ -59,6 +59,10 @@ function App({ firebase }) {
       .catch(error => console.log(error))
   }
 
+  const selectWatchlist = (watchlistId) => {
+    renderRawgApiData(`http://localhost:8000/watchlists/games/${watchlistId}`)
+  };
+
   const nextGame = () => {
     dispatch({ 
       type: INCREASE_RAWG_GAMES_DATA_INDEX, 
@@ -190,6 +194,7 @@ function App({ firebase }) {
       {state.watchlist !== 0 && (
         <Watchlist
           menuToggle={menuToggle}
+          selectWatchlist={selectWatchlist}
           watchlistClass={watchlistClass}
           watchlistToggle={watchlistToggle}
           watchlistData={state.watchlistData}
