@@ -22,6 +22,7 @@ class Firebase {
   signIn = (email, password) => this.auth.signInWithEmailAndPassword(email, password)
   signOut = () => this.auth.signOut()
   uId = () => this.auth.currentUser.uid
+  currentUser = () => this.auth.currentUser
 }
 
 export default Firebase;

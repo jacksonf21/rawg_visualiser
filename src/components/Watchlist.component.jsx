@@ -9,11 +9,11 @@ export default function Watchlist({ menuToggle, selectWatchlist, watchlistClass,
   };
 
   const watchlistIds = watchlistData.map(watchlist => {
-    return watchlist.id;
-  })
+    return watchlist.id
+  });
 
   const watchlists = watchlistData.map((watchlist, index) => {
-    return (<div onClick={() => selectWatchlist(watchlistIds[index])}>{watchlist.name}</div>)
+    return (<div onClick={() => selectWatchlist(watchlistIds[index])}>{watchlist.watchlist_name}</div>)
   });
 
   return (

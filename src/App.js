@@ -52,15 +52,23 @@ function App({ firebase }) {
   const renderWatchlists = (url) => {
     const id = firebase.uId();
     Axios.get(`${url}\\${id}`)
-      .then(res => {
-        console.log(res.data)
+      .then(res => 
         dispatch({ type: SET_WATCHLIST_DATA, value: res.data })
-      })
-      .catch(error => console.log(error))
+      )
+      .catch(err => console.log(err))
   }
+
+  // const renderAddWatchlists = (url, ) => {
+  //   const id = firebase.uId();
+  //   Axios.post(`${url}\\${id}`, )
+  //     .then(res => )
+  //     .catcch(err => )
+  // }
 
   const selectWatchlist = (watchlistId) => {
     renderRawgApiData(`http://localhost:8000/watchlists/games/${watchlistId}`)
+    dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist })
+    dispatch({ type: TOGGLE_MENU, value: state.menu })
   };
 
   const nextGame = () => {
@@ -94,7 +102,12 @@ function App({ firebase }) {
   }
 
   const addWatchlistToggle = () => {
-    dispatch({ type: TOGGLE_ADD_WATCHLIST, value: state.addWatchlist })
+    if (firebase.currentUser() !== null) {
+      dispatch({ type: TOGGLE_ADD_WATCHLIST, value: state.addWatchlist })
+      renderWatchlists('http://localhost:8000/watchlists/add')
+    } else {
+      dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn})
+    }
   }
 
   const setSearchData = (index) => {
@@ -145,7 +158,7 @@ function App({ firebase }) {
     <GameBody
       addWatchlistToggle={addWatchlistToggle} 
       rawgGameData={state.rawgGameData}
-      rawgGameDataIndex={state.rawgGameDataIndex} 
+      rawgGameDataIndex={state.rawgGameDataIndex}
     />
   );
 
@@ -205,6 +218,8 @@ function App({ firebase }) {
           addWatchlistClass={addWatchlistClass}
           addWatchlistToggle={addWatchlistToggle}
           watchlistData={state.watchlistData}
+          rawgGameData={state.rawgGameData}
+          rawgGameDataIndex={state.rawgGameDataIndex}
         />
       )}
       <Navbar 
