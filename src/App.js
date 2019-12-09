@@ -51,19 +51,18 @@ function App({ firebase }) {
 
   const renderWatchlists = (url) => {
     const id = firebase.uId();
+
     Axios.get(`${url}\\${id}`)
-      .then(res => 
-        dispatch({ type: SET_WATCHLIST_DATA, value: res.data })
-      )
+      .then(res => dispatch({ type: SET_WATCHLIST_DATA, value: res.data }))
       .catch(err => console.log(err))
   }
 
-  // const renderAddWatchlists = (url, ) => {
-  //   const id = firebase.uId();
-  //   Axios.post(`${url}\\${id}`, )
-  //     .then(res => )
-  //     .catcch(err => )
-  // }
+  const addToWatchlist = (watchlistId, status) => {
+    if (status === 'add-watchlist-visible') {
+      Axios.post(`http://localhost:8000/watchlists/add/${watchlistId}`, state.rawgGameData[state.rawgGameDataIndex])
+        .then(res => renderWatchlists('http://localhost:8000/watchlists/add'))
+    }
+  };
 
   const selectWatchlist = (watchlistId) => {
     renderRawgApiData(`http://localhost:8000/watchlists/games/${watchlistId}`)
@@ -85,21 +84,11 @@ function App({ firebase }) {
     });
   } 
   
-  const menuToggle = () => 
-  dispatch({ type: TOGGLE_MENU, value: state.menu });
-   
-  const searchToggle = () =>
-  dispatch({ type: TOGGLE_SEARCH, value: state.search });   
-  
-  const signUpToggle = () => 
-  dispatch({ type: TOGGLE_SIGN_UP, value: state.signUp });
-
-  const signInToggle = () => 
-  dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn });
-
-  const watchlistToggle = () => {
-    dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist });
-  }
+  const menuToggle = () => dispatch({ type: TOGGLE_MENU, value: state.menu });
+  const searchToggle = () => dispatch({ type: TOGGLE_SEARCH, value: state.search });   
+  const signUpToggle = () => dispatch({ type: TOGGLE_SIGN_UP, value: state.signUp });
+  const signInToggle = () => dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn });
+  const watchlistToggle = () => dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist });
 
   const addWatchlistToggle = () => {
     if (firebase.currentUser() !== null) {
@@ -136,6 +125,15 @@ function App({ firebase }) {
     }, 1000)
   };
 
+  const menuClass = templateClassName(state.menu, 'overlay-hidden', 'overlay-visible overlay-visible--menu');
+  const searchClass = templateClassName(state.search, 'overlay-hidden', 'overlay-visible overlay-visible--search');
+  const watchlistClass = templateClassName(state.watchlist, 'overlay-hidden', 'overlay-visible overlay-visible--watchlist');
+  const addWatchlistClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'overlay-visible overlay-visible--addWatchlist');
+  
+  const menuOverlayClass = templateClassName(state.menu, 'overlay-hidden', 'menu-overlay--visible');
+  const searchOverlayClass = templateClassName(state.search, 'overlay-hidden', 'search-overlay--visible');
+  const addWatchlistOverlayClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'menu-overlay--visible');
+
   //Decided to pass down these components instead of nesting unused props
   const gameHeaderComponent = (
     <GameHeader 
@@ -161,16 +159,6 @@ function App({ firebase }) {
       rawgGameDataIndex={state.rawgGameDataIndex}
     />
   );
-
-  const menuClass = templateClassName(state.menu, 'overlay-hidden', 'overlay-visible overlay-visible--menu');
-  const searchClass = templateClassName(state.search, 'overlay-hidden', 'overlay-visible overlay-visible--search');
-  const watchlistClass = templateClassName(state.watchlist, 'overlay-hidden', 'overlay-visible overlay-visible--watchlist');
-  const addWatchlistClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'overlay-visible overlay-visible--addWatchlist');
-  
-  const menuOverlayClass = templateClassName(state.menu, 'overlay-hidden', 'menu-overlay--visible');
-  const searchOverlayClass = templateClassName(state.search, 'overlay-hidden', 'search-overlay--visible');
-  const addWatchlistOverlayClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'menu-overlay--visible');
-
 
   return (
     <div className="App">
@@ -217,6 +205,7 @@ function App({ firebase }) {
         <AddWatchlist
           addWatchlistClass={addWatchlistClass}
           addWatchlistToggle={addWatchlistToggle}
+          addToWatchlist={addToWatchlist}
           watchlistData={state.watchlistData}
           rawgGameData={state.rawgGameData}
           rawgGameDataIndex={state.rawgGameDataIndex}

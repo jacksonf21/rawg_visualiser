@@ -5,30 +5,27 @@ import { FirebaseContext } from './Firebase';
 import { getUniqueWatchlist, getWatchlistClassNames } from '../helper/addWatchlist';
 import '../stylesheets/addWatchlist.css';
 
-export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, watchlistData, rawgGameDataIndex, rawgGameData }) {
+export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, addToWatchlist, watchlistData, rawgGameDataIndex, rawgGameData }) {
 
+  const gameData = rawgGameData[rawgGameDataIndex];
   const watchlistNames = getUniqueWatchlist(watchlistData);
 
-  const watchlistClasses = getWatchlistClassNames(watchlistData, rawgGameData[rawgGameDataIndex].gameId);
+  const watchlistClasses = getWatchlistClassNames(watchlistData, gameData.gameId);
 
-  const watchlistIds = watchlistData.map(watchlist => {
-    return watchlist.id
-  });
-
-
-  //CHECK IF THE CLICK DOES NOT FIRE FOR HIDDEN 
-  const addToWatchlist = (watchlistId) => {
-    console.log('fire')
-  };
+  const watchlistIds = watchlistData.map(watchlist => watchlist.watchlist_id)
+  const watchlistUniqueIds = [...new Set(watchlistIds)]
 
   const watchlists = watchlistNames.map((name, index) => {
     return (
+      <>
+      <br></br>
       <div 
         className={watchlistClasses[index]}
-        onClick={() => addToWatchlist()}
+        onClick={() => addToWatchlist(watchlistUniqueIds[index], watchlistClasses[index])}
       >
         {name}
       </div>
+      </>
     )
   });
 

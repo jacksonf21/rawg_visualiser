@@ -14,16 +14,19 @@ const getWatchlistClassNames = (data, gameId) => {
   const watchlistClassNames = {};
 
   data.forEach(entry => {
-    if (!watchlistClassNames[entry.watchlist_name]) {
-      if (entry.gameId === gameId) {
-        watchlistClassNames[entry.watchlist_name] = 'add-watchlist-hidden';
-      } else {
-        watchlistClassNames[entry.watchlist_name] = 'add-watchlist-visible'; 
-      }
-    }
+    watchlistClassNames[entry.watchlist_id] ? 
+    watchlistClassNames[entry.watchlist_id].push(entry.rawg_id) : 
+    watchlistClassNames[entry.watchlist_id] = [entry.rawg_id] 
   })
 
-  return Object.values(watchlistClassNames);
+  const watchlistIds = Object.keys(watchlistClassNames);
+  
+  const booleanClassNames = watchlistIds.map(id => {
+    return watchlistClassNames[id].some(rawgIds => rawgIds === gameId)
+  })
+
+  return booleanClassNames.map(bool => bool ? 'add-watchlist-hidden' : 'add-watchlist-visible')
+
 };
 
 module.exports = { getUniqueWatchlist, getWatchlistClassNames }
