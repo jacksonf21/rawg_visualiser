@@ -13,6 +13,8 @@ export const TOGGLE_WATCHLISTS = 'TOGGLE_WATCHLISTS';
 export const SET_WATCHLIST_DATA = 'SET_WATCHLIST_DATA';
 export const TOGGLE_ADD_WATCHLIST = 'TOGGLE_ADD_WATCHLIST';
 
+const { API_URL } = require('../constants/url')
+
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_RAWG_GAMES_DATA:
@@ -23,11 +25,11 @@ export default function reducer(state, action) {
     case SET_CATEGORY_INDEX: 
       let category;
 
-      action.value === 'http://localhost:8000'
+      action.value === API_URL
       ? category = 0 :
-      action.value === 'http://localhost:8000/this-month'
+      action.value === `${API_URL}/this-month`
       ? category = 1 : 
-      action.value === 'http://localhost:8000/upcoming-month'
+      action.value === `${API_URL}/upcoming-month`
       ? category = 2 : category = null;
 
       return {

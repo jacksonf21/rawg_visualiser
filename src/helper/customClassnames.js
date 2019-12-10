@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 
-const templateClassName = (state, typical, iftrue) => {
-  return classNames(typical, {
+const templateHiddenClass = (state, iftrue) => {
+  return classNames('overlay-hidden', {
     [iftrue] : state === 1
   })
 };
@@ -15,4 +15,4 @@ const pieClassCheck = (ratingCategory) => {
   });
 }
 
-module.exports = { pieClassCheck, templateClassName }
+module.exports = { pieClassCheck, templateHiddenClass }

@@ -11,7 +11,7 @@ import GameHeader from './components/GameHeader.component';
 import Category from './components/Category.component';
 import GameBody from './components/GameBody.component';
 
-import { templateClassName } from './helper/customClassnames';
+import { templateHiddenClass } from './helper/customClassnames';
 import Menu from './components/Menu.component';
 import Search from './components/Search.component';
 import SignUp from './components/SignUp.component';
@@ -19,9 +19,11 @@ import SignIn from './components/SignIn.component';
 import Watchlist from './components/Watchlist.component';
 import AddWatchlist from './components/AddWatchlist.component';
 
+const { API_URL } = require('./constants/url'); 
+
 function App({ firebase }) {
 
-  //rawg is the 3rd party API
+  //RAWG is a 3rd party API
   const [state, dispatch] = useReducer(reducer, {
     rawgGameData: [],
     rawgGameDataIndex: null,
@@ -37,35 +39,46 @@ function App({ firebase }) {
     watchlistData: []
   });
 
-  useEffect(() => renderRawgApiData('http://localhost:8000'), []);
+  useEffect(() => renderRawgApiData(API_URL), []);
 
   const renderRawgApiData = (url) => {
-    Axios.get(url)
+    
+    Axios
+      .get(url)
       .then(res => {
         dispatch({ type: SET_RAWG_GAMES_DATA, value: res.data });
         dispatch({ type: SET_RAWG_GAMES_DATA_INDEX, value: 0 });
         dispatch({ type: SET_CATEGORY_INDEX, value: url });
         dispatch({ type: SET_NAVIGATION_ARROWS, value: res.data.length });
       })
+      .catch(err => console.log(err))
+
   };
 
   const renderWatchlists = (url) => {
     const id = firebase.uId();
 
-    Axios.get(`${url}\\${id}`)
+    Axios
+      .get(`${url}\\${id}`)
       .then(res => dispatch({ type: SET_WATCHLIST_DATA, value: res.data }))
       .catch(err => console.log(err))
-  }
+
+  };
 
   const addToWatchlist = (watchlistId, status) => {
     if (status === 'add-watchlist-visible') {
-      Axios.post(`http://localhost:8000/watchlists/add/${watchlistId}`, state.rawgGameData[state.rawgGameDataIndex])
-        .then(res => renderWatchlists('http://localhost:8000/watchlists/add'))
+      const currentGameData = state.rawgGameData[state.rawgGameDataIndex]; 
+
+      Axios
+        .post(`${API_URL}/watchlists/add/${watchlistId}`, currentGameData)
+        .then(res => renderWatchlists(`${API_URL}/watchlists/add`))
+        .catch(err => console.log(err))
+
     }
   };
 
   const selectWatchlist = (watchlistId) => {
-    renderRawgApiData(`http://localhost:8000/watchlists/games/${watchlistId}`)
+    renderRawgApiData(`${API_URL}/watchlists/games/${watchlistId}`)
     dispatch({ type: TOGGLE_WATCHLISTS, value: state.watchlist })
     dispatch({ type: TOGGLE_MENU, value: state.menu })
   };
@@ -93,7 +106,7 @@ function App({ firebase }) {
   const addWatchlistToggle = () => {
     if (firebase.currentUser() !== null) {
       dispatch({ type: TOGGLE_ADD_WATCHLIST, value: state.addWatchlist })
-      renderWatchlists('http://localhost:8000/watchlists/add')
+      renderWatchlists(`${API_URL}/watchlists/add`)
     } else {
       dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn})
     }
@@ -115,9 +128,10 @@ function App({ firebase }) {
     clearTimeout(timeout)
   
     timeout = setTimeout(() => {
-      const url = `http://localhost:8000/search/collection/${searchValue}`;
+      const url = `${API_URL}/search/collection/${searchValue}`;
       
-      Axios.get(url)
+      Axios
+        .get(url)
         .then(res => {
           if (searchValue) dispatch({ type: SET_SEARCH_FIELDS, value: res.data })
         })
@@ -125,14 +139,14 @@ function App({ firebase }) {
     }, 1000)
   };
 
-  const menuClass = templateClassName(state.menu, 'overlay-hidden', 'overlay-visible overlay-visible--menu');
-  const searchClass = templateClassName(state.search, 'overlay-hidden', 'overlay-visible overlay-visible--search');
-  const watchlistClass = templateClassName(state.watchlist, 'overlay-hidden', 'overlay-visible overlay-visible--watchlist');
-  const addWatchlistClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'overlay-visible overlay-visible--addWatchlist');
+  const menuClass = templateHiddenClass(state.menu, 'overlay-visible overlay-visible--menu');
+  const searchClass = templateHiddenClass(state.search, 'overlay-visible overlay-visible--search');
+  const watchlistClass = templateHiddenClass(state.watchlist, 'overlay-visible overlay-visible--watchlist');
+  const addWatchlistClass = templateHiddenClass(state.addWatchlist, 'overlay-visible overlay-visible--addWatchlist');
   
-  const menuOverlayClass = templateClassName(state.menu, 'overlay-hidden', 'menu-overlay--visible');
-  const searchOverlayClass = templateClassName(state.search, 'overlay-hidden', 'search-overlay--visible');
-  const addWatchlistOverlayClass = templateClassName(state.addWatchlist, 'overlay-hidden', 'menu-overlay--visible');
+  const menuOverlayClass = templateHiddenClass(state.menu, 'menu-overlay--visible');
+  const searchOverlayClass = templateHiddenClass(state.search, 'search-overlay--visible');
+  const addWatchlistOverlayClass = templateHiddenClass(state.addWatchlist, 'menu-overlay--visible');
 
   //Decided to pass down these components instead of nesting unused props
   const gameHeaderComponent = (

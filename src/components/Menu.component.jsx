@@ -1,6 +1,8 @@
 import React from 'react';
 import '../stylesheets/menu.css';
 
+const { API_URL } = require('../constants/url');
+
 export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, menuToggle, watchlistToggle, renderWatchlists }) {
 
   const signedIn = firebase.auth.currentUser; 
@@ -22,7 +24,7 @@ export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, 
 
   const accessWatchlists = () => {
     watchlistToggle()
-    renderWatchlists('http://localhost:8000/watchlists')
+    renderWatchlists(`${API_URL}/watchlists`)
   }
 
   return (

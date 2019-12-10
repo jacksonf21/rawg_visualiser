@@ -1,5 +1,6 @@
 import React from 'react';
 
+const { API_URL } = require('../constants/url');
 const classNames = require('classnames');
 
 export default function Category({ categoryIndex, renderRawgApiData }) {
@@ -13,9 +14,24 @@ export default function Category({ categoryIndex, renderRawgApiData }) {
   return (
     <nav className={gameHeaderNav}>
         
-      <div className='year' onClick={() => renderRawgApiData('http://localhost:8000')}>Annual</div>
-      <div className='this-month' onClick={() => renderRawgApiData('http://localhost:8000/this-month')}>Month</div>
-      <div className='next-month' onClick={() => renderRawgApiData('http://localhost:8000/upcoming-month')}>Upcoming</div>
+      <div 
+        className='year' 
+        onClick={() => renderRawgApiData(API_URL)}
+      >
+        Annual
+      </div>
+      <div 
+        className='this-month' 
+        onClick={() => renderRawgApiData(`${API_URL}/this-month`)}
+      >
+        Month
+      </div>
+      <div 
+        className='next-month' 
+        onClick={() => renderRawgApiData(`${API_URL}/upcoming-month`)}
+      >
+        Upcoming
+      </div>
   
     </nav>
   )

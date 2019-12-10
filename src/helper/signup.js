@@ -1,4 +1,5 @@
 import Axios from 'axios';
+const { API_URL } = require('../constants/url');
 
 export default function signUpDetails(uid) {
   const userInformation = [];
@@ -7,6 +8,6 @@ export default function signUpDetails(uid) {
   userInformation.push(document.getElementsByClassName('email')[0].value)
   userInformation.push(uid)
   
-  Axios.post('http://localhost:8000/signup', {userInformation: userInformation} )
+  Axios.post(`${API_URL}/signup`, {userInformation: userInformation} )
     .catch(err => console.log(err))
 };
