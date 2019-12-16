@@ -1,0 +1,54 @@
+
+.search-games {
+  padding-left: 3vw;
+  border: none;
+  background-color: #E0E0E0;
+  border-radius: 5px;
+  height: 5vh;
+  width: 65vw;
+  outline: none;
+}
+
+.search-games:placeholder-shown {
+  font-family: roboto;
+  padding-left: 3vw;
+  font-size: 6vw;
+  font-weight: 100;
+}
+
+.search-cancel {
+  font-family: roboto;
+  border: none;
+  background-color: #ffffff;
+  outline: none;
+  height: 5vh;
+  font-size: 6vw;
+  font-weight: 100;
+  margin-left: 3vw;
+}
+
+.search-header {
+  margin-left: 5vw;
+  margin-top: 5vh;
+  display: flex;
+}
+
+.overlay-visible--search {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.search-paragraph {
+  font-family: roboto;
+  font-size: 6vw;
+  font-weight: 100;
+  text-align: center;
+  margin-top: 5vh;
+}
+
+.search-results {
+  margin-top: 5vh;
+  margin-left: 7vw;
+  font-family: roboto;
+  font-weight: 100;
+}

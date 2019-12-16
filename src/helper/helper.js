@@ -1,15 +1,24 @@
 const d3 = require('d3');
 
 const checkGameRatingFields = (game) => {
-  const ratings = game.ratings;
+  const gameRatings = game.ratings;
+  const currentRatings = [];
+
+  currentRatings.push(gameRatings.some(rating => rating.title === 'exceptional'))
+  currentRatings.push(gameRatings.some(rating => rating.title === 'recommended'))
+  currentRatings.push(gameRatings.some(rating => rating.title === 'meh'))
+  currentRatings.push(gameRatings.some(rating => rating.title === 'skip'))
+  
+  return addMissingRatings(gameRatings, currentRatings);
+};
+
+const pieClassCheck = () => {
+  return d3.select(".piechart-container__piechart")['_groups'][0] !== null
+}
+
+function addMissingRatings(ratings, currentRatings) {
   const desiredRatings = [[5, 'exceptional'], [4, 'recommended'], [3, 'meh'], [1, 'skip']];
-  const currentRatings = []; 
-
-  currentRatings.push(ratings.some(rating => rating.title === 'exceptional'))
-  currentRatings.push(ratings.some(rating => rating.title === 'recommended'))
-  currentRatings.push(ratings.some(rating => rating.title === 'meh'))
-  currentRatings.push(ratings.some(rating => rating.title === 'skip'))
-
+  
   currentRatings.forEach((rating, idx) => {
     if (!rating) {
       const newRating = {
@@ -20,13 +29,9 @@ const checkGameRatingFields = (game) => {
       }
       ratings.push(newRating)
     }
-  })
-  
+  });
+
   return ratings;
 };
-
-const pieClassCheck = () => {
-  return d3.select(".piechart-container__piechart")['_groups'][0] !== null
-}
 
 module.exports = { checkGameRatingFields, pieClassCheck }
