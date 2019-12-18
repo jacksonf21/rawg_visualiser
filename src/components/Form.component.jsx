@@ -13,7 +13,7 @@ export default function Form({ firebase }) {
   
   return (
     <>
-      <button onClick={() => createWatchlist()}>Create New</button>
+      <button className='watchlist-create' onClick={() => createWatchlist()}>Create</button>
       <input type='text' className='watchlist-name' />
     </>
   )

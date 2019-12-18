@@ -18,13 +18,12 @@ export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, ad
   const watchlists = watchlistNames.map((name, index) => {
     return (
       <>
-      <br></br>
-      <div 
-        className={watchlistClasses[index]}
-        onClick={() => addToWatchlist(watchlistUniqueIds[index], watchlistClasses[index])}
-      >
-        {name}
-      </div>
+        <div 
+          className={watchlistClasses[index]}
+          onClick={() => addToWatchlist(watchlistUniqueIds[index], watchlistClasses[index])}
+        >
+          {name}
+        </div>
       </>
     )
   });
@@ -33,7 +32,7 @@ export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, ad
     <section className={addWatchlistClass}>
       <CloseIcon onClick={() => addWatchlistToggle()}/>
       {watchlistData.length !== 0 ? (
-        <>{watchlists}</>
+        <ul className='watchlist-carousel'>{watchlists}</ul>
       ) : (
         <div>No Watchlists Found!</div>
       )}

@@ -2,9 +2,35 @@
   pointer-events: none;
 }
 
+.watchlist-create {
+  outline: none;
+  border: none;
+  background-color: #ffffff;
+}
+
+.watchlist-name {
+  outline: none;
+  border: none;
+  background-color: #E0E0E0;
+}
+
+.watchlist-carousel {
+  display: flex;
+}
+
+.watchlist-carousel * {
+  margin: 0 3vw;
+}
+
 .overlay-visible--addWatchlist {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.overlay-visible--addWatchlist * {
+  font-family: roboto;
+  font-weight: 100;
+  font-size: 3vh;
 }
 
 /*# sourceMappingURL=addWatchlist.css.map */

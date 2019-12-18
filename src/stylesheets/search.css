@@ -1,25 +1,25 @@
 .search-games {
-  padding-left: 3vw;
+  outline: none;
   border: none;
+  font-family: roboto;
+  font-weight: 100;
+  padding-left: 3vw;
   background-color: #E0E0E0;
   border-radius: 5px;
   height: 5vh;
   width: 65vw;
-  outline: none;
 }
 
 .search-games:placeholder-shown {
-  font-family: roboto;
   padding-left: 3vw;
-  font-size: 6vw;
+  font-size: 4vw;
   font-weight: 100;
 }
 
 .search-cancel {
-  font-family: roboto;
+  outline: none;
   border: none;
   background-color: #ffffff;
-  outline: none;
   height: 5vh;
   font-size: 6vw;
   font-weight: 100;
@@ -38,7 +38,6 @@
 }
 
 .search-paragraph {
-  font-family: roboto;
   font-size: 6vw;
   font-weight: 100;
   text-align: center;
@@ -48,7 +47,6 @@
 .search-results {
   margin-top: 5vh;
   margin-left: 7vw;
-  font-family: roboto;
   font-weight: 100;
 }
 

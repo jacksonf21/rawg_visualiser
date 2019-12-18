@@ -16,3 +16,8 @@
   font-size: $size;
   font-weight: $weight;
 }
+
+@mixin defaultButtonRemove {
+  outline: none;
+  border: none;
+}
