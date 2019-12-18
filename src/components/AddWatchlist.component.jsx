@@ -5,7 +5,7 @@ import { FirebaseContext } from './Firebase';
 import { getUniqueWatchlist, getWatchlistClassNames } from '../helper/addWatchlist';
 import '../stylesheets/addWatchlist.css';
 
-export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, addToWatchlist, watchlistData, rawgGameDataIndex, rawgGameData }) {
+export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, addToWatchlist, watchlistData, rawgGameDataIndex, rawgGameData, renderWatchlists }) {
 
   const gameData = rawgGameData[rawgGameDataIndex];
   const watchlistNames = getUniqueWatchlist(watchlistData);
@@ -38,7 +38,7 @@ export default function AddWatchlist({ addWatchlistToggle, addWatchlistClass, ad
       )}
       <footer>
       <FirebaseContext.Consumer>
-        {firebase => <Form firebase={firebase}/> }
+        {firebase => <Form firebase={firebase} renderWatchlists={renderWatchlists}/> }
       </FirebaseContext.Consumer>
       </footer>
     </section>

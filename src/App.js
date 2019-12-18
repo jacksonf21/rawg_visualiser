@@ -106,7 +106,7 @@ function App({ firebase }) {
   const addWatchlistToggle = () => {
     if (firebase.currentUser() !== null) {
       dispatch({ type: TOGGLE_ADD_WATCHLIST, value: state.addWatchlist })
-      renderWatchlists(`${API_URL}/watchlists/add`)
+      renderWatchlists(`${API_URL}/watchlists`)
     } else {
       dispatch({ type: TOGGLE_SIGN_IN, value: state.signIn})
     }
@@ -174,6 +174,7 @@ function App({ firebase }) {
     />
   );
 
+
   return (
     <div className="App">
       <section className={searchOverlayClass} onClick={() => searchToggle()}/>
@@ -223,6 +224,7 @@ function App({ firebase }) {
           watchlistData={state.watchlistData}
           rawgGameData={state.rawgGameData}
           rawgGameDataIndex={state.rawgGameDataIndex}
+          renderWatchlists={renderWatchlists}
         />
       )}
       <Navbar 

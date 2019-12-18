@@ -24,7 +24,7 @@ export default function Menu({ firebase, menuClass, signUpToggle, signInToggle, 
 
   const accessWatchlists = () => {
     watchlistToggle()
-    renderWatchlists(`${API_URL}/watchlists`)
+    renderWatchlists(`${API_URL}/watchlists/`)
   }
 
   return (
